@@ -9,3 +9,4 @@ node_modules
 wrangler.jsonc
 tools
 .playwright-mcp
+audio-sample
