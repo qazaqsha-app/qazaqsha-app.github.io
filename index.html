@@ -50,6 +50,8 @@
     --septik:#2E9E6B; --septik-tint:#E3F6EC; --septik-deep:#1B6B49;
     --etistik:#C2447E;--etistik-tint:#FBEAF2;--etistik-deep:#7C2C56;
     --keneyu:#A66A1D; --keneyu-tint:#F7ECD9; --keneyu-deep:#6B430D;
+    /* Сөйлесу — живые фразы, вне блоков грамматики */
+    --soilesu:#6A55C8; --soilesu-tint:#EEEAFB; --soilesu-deep:#3F2F8F;
 
     /* Сингармонизм — сквозная цветовая пара всего курса.
        Жуан (твёрдый) — тёплый песочный, жіңішке (мягкий) — холодный синий.
@@ -73,6 +75,9 @@
     --muted:#97A1AF;
   }
   body.dark .subnav-btn{background:var(--card); border-color:#323A46;}
+  /* Активная вкладка: без этого правило выше перебивало .subnav-btn.active,
+     и в тёмной теме не было видно, какая вкладка открыта. */
+  body.dark .subnav-btn.active{background:var(--tint-color,var(--negiz)); border-color:var(--tint-color,var(--negiz)); color:#fff;}
   body.dark .examples li{border-top-color:#29303B;}
   body.dark .why-note{border-top-color:#29303B;}
   body.dark .mini-text .ru-translation{border-top-color:#29303B;}
@@ -369,6 +374,103 @@
   .suf-why b{color:var(--ink);}
   .suf-why .step{display:block; margin-top:3px;}
 
+  /* ---------- СӨЙЛЕСУ: ФРАЗЫ И СЦЕНЫ ---------- */
+  .tag[data-group="soilesu"]{background:var(--soilesu-tint); color:var(--soilesu-deep);}
+  .blockbar .soilesu{background:var(--soilesu);}
+  .speak-row{border:none; background:var(--card); box-shadow:inset 0 0 0 2px var(--soilesu);}
+  .start-here{
+    display:block; width:100%; text-align:left; cursor:pointer; color:var(--ink);
+    background:var(--card); border:2px solid var(--soilesu); border-radius:12px;
+    padding:11px 13px; font-family:var(--font-ru); font-size:0.88rem;
+  }
+  .start-here b{display:block; font-size:0.98rem;}
+  .start-here .review-why{margin-top:3px;}
+  .start-alt{
+    display:inline-block; margin-top:8px; background:none; border:none; padding:0;
+    font-family:var(--font-ru); font-size:0.82rem; font-weight:600; color:var(--muted);
+    text-decoration:underline; cursor:pointer;
+  }
+
+  .ph-group{margin:0 0 22px;}
+  .ph-head{font-weight:800; font-size:0.98rem; margin:0 0 10px;}
+  .ph-head-ru{display:block; font-weight:400; font-size:0.8rem; color:var(--muted);}
+  .ph-icon{margin-right:2px;}
+  .phrase{background:var(--card); border-radius:12px; padding:11px 14px; margin:0 0 8px;}
+  .ph-key{box-shadow:inset 4px 0 0 var(--soilesu);}
+  .ph-kk{font-family:var(--font-kk); font-weight:700; font-size:1.08rem; line-height:1.4;}
+  .ph-ru{font-size:0.9rem; margin-top:1px;}
+  .ph-when{font-size:0.8rem; color:var(--muted); margin-top:5px;}
+  .ph-link{
+    background:none; border:none; padding:4px 0 0; cursor:pointer;
+    font-family:var(--font-ru); font-size:0.78rem; font-weight:700; color:#2A7299;
+  }
+  body.dark .ph-link{color:#5AA6CE;}
+
+  .scene-intro{font-size:0.9rem; margin:0 0 10px;}
+  .scene-hints{display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--muted); margin:0 0 12px; cursor:pointer;}
+  .scene-hints input{width:18px; height:18px; accent-color:var(--soilesu);}
+  .scene-list{display:flex; flex-direction:column; gap:8px; margin:0 0 16px;}
+  .scene-btn{
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left;
+    background:var(--card); border:2px solid transparent; border-radius:12px; padding:11px 14px;
+    font-family:var(--font-ru); font-size:0.95rem; color:var(--ink); cursor:pointer;
+  }
+  .scene-btn.on{border-color:var(--soilesu);}
+  .scene-btn .row-check{opacity:0;}
+  .scene-btn .row-check.on{opacity:1;}
+
+  .scene-stage:empty{display:none;}
+  .scene-stage{background:var(--card); border-radius:14px; padding:14px; margin:0 0 16px;}
+  .scene-title{font-weight:800; font-size:0.95rem; margin:0 0 2px;}
+  .scene-setting{font-size:0.8rem; color:var(--muted); margin:0 0 12px;}
+  .chat{display:flex; flex-direction:column; gap:8px;}
+  .bubble{max-width:88%; border-radius:14px; padding:8px 12px; line-height:1.4;}
+  .bubble.them{align-self:flex-start; background:var(--bg); border-bottom-left-radius:4px;}
+  .bubble.you{align-self:flex-end; background:var(--soilesu-tint); color:var(--ink-fixed); border-bottom-right-radius:4px;}
+  .bubble .b-who{display:block; font-size:0.72rem; font-weight:800; color:var(--muted);}
+  .bubble.you .b-who{color:var(--soilesu-deep);}
+  .bubble .b-kk{font-family:var(--font-kk); font-weight:600; font-size:1rem;}
+  .bubble .b-ru{display:none; font-size:0.8rem; color:var(--muted); margin-top:2px;}
+  .bubble.you .b-ru{color:#4A4560;}
+  .bubble.ru-line .b-kk{font-family:var(--font-ru); font-style:italic; font-weight:500;}
+  .scene-stage.hints .b-ru, .scene-stage.hints .opt-ru{display:block;}
+  .scene-opts{display:flex; flex-direction:column; gap:6px; margin:14px 0 0;}
+  .scene-opt{
+    text-align:left; background:var(--card); color:var(--ink); cursor:pointer;
+    border:1.5px solid var(--soilesu); border-radius:12px; padding:9px 12px;
+    font-family:var(--font-kk); font-size:0.98rem; font-weight:600;
+  }
+  .scene-opt .opt-ru{display:none; font-family:var(--font-ru); font-size:0.78rem; font-weight:400; color:var(--muted);}
+  .scene-opt.bad{border-color:var(--bad); background:var(--bad-tint); color:var(--ink-fixed); cursor:default;}
+  .scene-opt.bad .opt-ru{color:#5A4A48;}
+  .scene-why{font-size:0.85rem; margin:8px 0 0; padding:9px 12px; border-radius:10px; background:var(--bad-tint); color:var(--ink-fixed);}
+  .scene-why:empty{display:none;}
+  .scene-done{margin:14px 0 0; padding:11px 13px; border-radius:10px; background:var(--ok-tint); color:var(--ink-fixed); font-size:0.9rem;}
+  .scene-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .scene-actions button{
+    border:none; border-radius:10px; padding:9px 14px; cursor:pointer;
+    font-family:var(--font-ru); font-size:0.88rem; font-weight:700;
+    background:var(--soilesu); color:#fff;
+  }
+  .scene-actions button.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--soilesu);}
+
+  /* ---------- ШПАРГАЛКА: МАРШРУТ СЛОВА ---------- */
+  .route-lead{margin:0 0 10px;}
+  .route-q{display:flex; flex-direction:column; gap:8px; margin:0 0 12px;}
+  .rq{display:grid; grid-template-columns:28px 1fr; column-gap:10px; background:var(--card); border-radius:12px; padding:10px 12px; font-size:0.88rem;}
+  .rq b{grid-column:2;} .rq > span:last-child{grid-column:2;}
+  .rq-n{grid-row:1 / span 2; width:28px; height:28px; border-radius:50%; background:var(--negiz); color:#fff; font-family:var(--font-lat); font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .rq em{font-style:normal; font-family:var(--font-kk); font-weight:700;}
+  .routes{display:flex; flex-direction:column; gap:6px; margin:0 0 16px;}
+  .route{display:grid; grid-template-columns:62px 1fr 1fr; grid-template-areas:"w s1 s2" "w out out"; gap:4px 8px; align-items:center; background:var(--card); border-radius:12px; padding:9px 12px;}
+  .rt-word{grid-area:w; font-family:var(--font-kk); font-weight:700; font-size:1.05rem;}
+  .rt-step{font-size:0.8rem; color:var(--muted);}
+  .rt-step i{font-style:normal; display:block; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.04em;}
+  .rt-step b{font-family:var(--font-kk); font-size:0.98rem; color:var(--ink);}
+  .rt-step b.zh{color:var(--zhuan);} .rt-step b.zi{color:var(--zhinishke);}
+  .rt-out{grid-area:out; font-family:var(--font-kk); font-weight:600; font-size:1rem;}
+  .rt-out .zh{color:var(--zhuan);} .rt-out .zi{color:var(--zhinishke);}
+
   /* ---------- ТЕКСТЫ ---------- */
   .reading-block{margin-bottom:20px;}
   .text-label{font-size:0.72rem; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;}
@@ -646,6 +748,7 @@
 <!-- Уровень CEFR тут намеренно не дублируется: он стоит в заголовке блока,
      куда кнопка и ведёт. Пока стоял в обоих местах, разошёлся при правке. -->
 <nav class="blockbar">
+  <button class="soilesu" data-target="soilesu">СӨЙЛЕСУ · ФРАЗЫ</button>
   <button class="negiz" data-target="negiz">НЕГІЗ · ОСНОВА</button>
   <button class="septik" data-target="septik">СЕПТІК · ПАДЕЖИ</button>
   <button class="etistik" data-target="etistik">ЕТІСТІК · ГЛАГОЛ</button>
@@ -713,13 +816,24 @@
 </header>
 
 <main>
-  <div class="level-divider"><span>Блок 0 · Негіз — основа</span></div>
-  <div class="topic-group" id="negiz">
+  <div class="level-divider"><span>Сөйлесу — говорить сегодня</span></div>
+  <div class="topic-group" id="soilesu">
     <div class="era-header">
-      <span class="tag" data-group="negiz">Блок 0 · A1 · Қарапайым · 12 тем</span>
-      <h2>Закон, на котором держится весь язык</h2>
-      <div class="sub">Пока не автоматизирован выбор суффикса, не работает ни множественное число, ни падеж, ни глагол. Поэтому начинаем отсюда.</div>
+      <span class="tag" data-group="soilesu">Сөйлесу · без грамматики</span>
+      <h2>Фразы, которые можно сказать сегодня</h2>
+      <div class="sub">Пришёл говорить, а не учить падежи — начни отсюда. Фразы целиком, с подсказкой, когда их говорить, и сцены-диалоги, где ты отвечаешь собеседнику.</div>
     </div>
+    <div class="topic-list">
+      <button type="button" class="tool-row speak-row" data-open="speak">
+        <span class="tool-icon">💬</span>
+        <span class="row-title">Сөйлесу · живые фразы<span class="row-title-ru">щит «не понял», знакомство, базар, такси, в гостях · 4 сцены</span></span>
+        <span class="row-arrow" aria-hidden="true">›</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="level-divider"><span>Құралдар — словарь и инструменты</span></div>
+  <div class="topic-group" id="quraldar">
     <div class="topic-list">
       <button type="button" class="tool-row" data-open="tool-suffix">
         <span class="tool-icon">🎛</span>
@@ -728,7 +842,7 @@
       </button>
       <button type="button" class="tool-row" data-open="cheat-law">
         <span class="tool-icon">📋</span>
-        <span class="row-title">Шпаргалка · Үндестік заңы<span class="row-title-ru">все таблицы созвучия на одном экране</span></span>
+        <span class="row-title">Шпаргалка окончаний<span class="row-title-ru">схема выбора буквы и все окончания на одном экране</span></span>
         <span class="row-arrow" aria-hidden="true">›</span>
       </button>
       <button type="button" class="tool-row" data-open="vocab">
@@ -737,7 +851,17 @@
         <span class="row-vocab-due" id="vocabDueBadge"></span>
         <span class="row-arrow" aria-hidden="true">›</span>
       </button>
+    </div>
+  </div>
 
+  <div class="level-divider"><span>Блок 0 · Негіз — основа</span></div>
+  <div class="topic-group" id="negiz">
+    <div class="era-header">
+      <span class="tag" data-group="negiz">Блок 0 · A1 · Қарапайым · 12 тем</span>
+      <h2>Закон, на котором держится весь язык</h2>
+      <div class="sub">Пока не автоматизирован выбор суффикса, не работает ни множественное число, ни падеж, ни глагол. Поэтому начинаем отсюда.</div>
+    </div>
+    <div class="topic-list">
       <button type="button" class="topic-row" data-open="harmony-vowels">
         <span class="marker" style="background:var(--negiz)"></span>
         <span class="row-title"><span class="topic-num">0.1</span> Үндестік заңы I<span class="row-title-ru">закон созвучия: гармония гласных</span></span>
@@ -1097,10 +1221,48 @@
   <div class="topic-topbar"><button type="button" class="back-btn" data-back>← Все темы</button></div>
   <div class="topic-header">
     <span class="marker" style="background:var(--negiz)"></span>
-    <h2>Шпаргалка · Үндестік заңы</h2>
+    <h2>Шпаргалка окончаний</h2>
   </div>
-  <div class="topic-subtitle">Обе таблицы закона созвучия на одном экране. Возвращайся сюда, пока выбор не станет автоматическим.</div>
+  <div class="topic-subtitle">Үндестік заңы — закон созвучия — и все окончания на одном экране. Возвращайся сюда, пока выбор не станет автоматическим.</div>
   <div class="pane active">
+    <p class="route-lead">Любое окончание выбирается двумя вопросами к концу слова. Задай их по порядку — и вариант найдётся без таблицы.</p>
+    <div class="route-q">
+      <div class="rq"><span class="rq-n">1</span><b>Какой последний гласный?</b><span><em class="zh">а о ұ ы</em> → твёрдый: в окончании <b>а, ы</b>. <em class="zi">ә ө ү і е</em> → мягкий: <b>е, і</b>.</span></div>
+      <div class="rq"><span class="rq-n">2</span><b>Какая последняя буква?</b><span>Гласная → окончание начнётся с <b>л, н, ғ, м</b>. Звонкая или сонорная → чаще всего с <b>д, ғ, б</b>. Глухая → тоже с глухой: <b>т, қ, п</b>.</span></div>
+    </div>
+    <div class="routes" aria-label="Пять слов, прошедших оба вопроса, на примере -лар и -ға">
+      <div class="route">
+        <span class="rt-word">бала</span>
+        <span class="rt-step"><i>гласный</i><b class="zh">а</b></span>
+        <span class="rt-step"><i>буква</i><b>а</b> гласная</span>
+        <span class="rt-out">бала<b class="zh">лар</b> · бала<b class="zh">ға</b></span>
+      </div>
+      <div class="route">
+        <span class="rt-word">үй</span>
+        <span class="rt-step"><i>гласный</i><b class="zi">ү</b></span>
+        <span class="rt-step"><i>буква</i><b>й</b> үнді</span>
+        <span class="rt-out">үй<b class="zi">лер</b> · үй<b class="zi">ге</b></span>
+      </div>
+      <div class="route">
+        <span class="rt-word">ел</span>
+        <span class="rt-step"><i>гласный</i><b class="zi">е</b></span>
+        <span class="rt-step"><i>буква</i><b>л</b> үнді</span>
+        <span class="rt-out">ел<b class="zi">дер</b> · ел<b class="zi">ге</b></span>
+      </div>
+      <div class="route">
+        <span class="rt-word">қыз</span>
+        <span class="rt-step"><i>гласный</i><b class="zh">ы</b></span>
+        <span class="rt-step"><i>буква</i><b>з</b> ұяң</span>
+        <span class="rt-out">қыз<b class="zh">дар</b> · қыз<b class="zh">ға</b></span>
+      </div>
+      <div class="route">
+        <span class="rt-word">кітап</span>
+        <span class="rt-step"><i>гласный</i><b class="zh">а</b></span>
+        <span class="rt-step"><i>буква</i><b>п</b> қатаң</span>
+        <span class="rt-out">кітап<b class="zh">тар</b> · кітап<b class="zh">қа</b></span>
+      </div>
+    </div>
+    <div class="tip"><b>Заметь:</b> <span class="kk">ел</span> и <span class="kk">үй</span> — оба на сонорную, но <span class="kk">ел<b>дер</b></span> и <span class="kk">үй<b>лер</b></span>. У көптік сонорные делятся на две группы — это видно в сводной таблице ниже. Сомневаешься — проверь в подборщике.</div>
     <p><b>Шаг 1 — какой гласный последний в слове.</b> Он решает, мягкий будет суффикс или твёрдый.</p>
     <div class="harm-grid">
       <div class="harm-cell zhuan">
@@ -7902,6 +8064,235 @@
   </div>
 </div>
 
+<!-- ============ СӨЙЛЕСУ · ЖИВЫЕ ФРАЗЫ ============
+     Фразы целиком, без разбора: человек пришёл говорить, и первая польза —
+     фраза, которую он скажет сегодня. У каждой строка «когда говорить» и,
+     где грамматика уже разобрана в курсе, ссылка на тему. Сцены — второй
+     шаг: узнать ту же фразу в живом обмене репликами. -->
+<div class="screen topic-screen" id="screen-speak" style="--tint-color:var(--soilesu)">
+  <div class="topic-topbar"><button type="button" class="back-btn" data-back>← Все темы</button></div>
+  <div class="topic-header">
+    <span class="marker" style="background:var(--soilesu)"></span>
+    <h2>Сөйлесу · живые фразы</h2>
+  </div>
+  <div class="topic-subtitle">Готовые фразы, которые можно сказать сегодня, — без грамматики. Почему они устроены именно так, объяснит тема по ссылке, когда до неё дойдёшь.</div>
+  <div class="subnav">
+    <button type="button" class="subnav-btn active" data-pane="rule"><b>Тіркестер</b><i>фразы</i></button>
+    <button type="button" class="subnav-btn" data-pane="texts"><b>Диалог</b><i>сцены</i></button>
+  </div>
+
+  <div class="pane pane-rule active">
+    <div class="ph-group ph-shield">
+      <div class="ph-head"><span class="ph-icon" aria-hidden="true">🛡</span> Қалқан · щит<span class="ph-head-ru">что сказать, когда не понял. Выучить первыми</span></div>
+      <div class="trap"><b>Главная ловушка Казахстана.</b> Услышав акцент, собеседник из вежливости сам переходит на русский — и разговор на казахском кончается, не начавшись. На это есть одна фраза, и она важнее всех остальных: <span class="kk">Қазақша сөйлесейікші</span> — «давайте по-казахски». Её почти всегда встречают с радостью.</div>
+      <div class="phrase ph-key">
+        <div class="ph-kk">Қазақша сөйлесейікші.</div>
+        <div class="ph-ru">Давайте говорить по-казахски.</div>
+        <div class="ph-when">Когда собеседник перешёл на русский. Добавь: <span class="kk">Мен үйреніп жүрмін</span> — «я учу».</div>
+        <button type="button" class="ph-link" data-open="optative">почему так: 3.2 Қалау рай ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Кешіріңіз, түсінбедім.</div>
+        <div class="ph-ru">Извините, я не понял(а).</div>
+        <div class="ph-when">Сказали быстро или незнакомое слово.</div>
+        <button type="button" class="ph-link" data-open="verb-negation">почему так: 2.7 отрицание ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Қайталаңызшы.</div>
+        <div class="ph-ru">Повторите, пожалуйста.</div>
+        <div class="ph-when">Расслышал, но не успел понять. <span class="kk">-шы</span> в конце смягчает просьбу.</div>
+        <button type="button" class="ph-link" data-open="verb-stem">почему так: 2.1 бұйрық рай ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Баяуырақ сөйлеңізші.</div>
+        <div class="ph-ru">Говорите помедленнее, пожалуйста.</div>
+        <div class="ph-when">Слова знакомые, но сливаются в поток.</div>
+        <button type="button" class="ph-link" data-open="adjectives">почему так: 3.4 -рақ ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Мен қазақ тілін үйреніп жүрмін.</div>
+        <div class="ph-ru">Я учу казахский язык.</div>
+        <div class="ph-when">Сразу объясняет акцент и паузы. Дальше с тобой будут говорить проще.</div>
+        <button type="button" class="ph-link" data-open="present-cont">почему так: 2.3 жүр ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Аздап түсінемін.</div>
+        <div class="ph-ru">Немного понимаю.</div>
+        <div class="ph-when">На вопрос «вы по-казахски понимаете?».</div>
+        <button type="button" class="ph-link" data-open="present-future">почему так: 2.2 осы-келер шақ ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Бұл қазақша қалай болады?</div>
+        <div class="ph-ru">Как это будет по-казахски?</div>
+        <div class="ph-when">Показываешь на предмет или говоришь слово по-русски.</div>
+        <button type="button" class="ph-link" data-open="adverbs">почему так: 3.5 -ша ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Жазып беріңізші.</div>
+        <div class="ph-ru">Напишите, пожалуйста.</div>
+        <div class="ph-when">Адрес, имя, число — то, что на слух не поймать.</div>
+        <button type="button" class="ph-link" data-open="compound-verb">почему так: 2.8 күрделі етістік ›</button>
+      </div>
+    </div>
+
+    <div class="ph-group">
+      <div class="ph-head"><span class="ph-icon" aria-hidden="true">👋</span> Танысу · знакомство</div>
+      <div class="phrase">
+        <div class="ph-kk">Сәлеметсіз бе!</div>
+        <div class="ph-ru">Здравствуйте!</div>
+        <div class="ph-when">Со старшими, незнакомыми, в магазине. Другу — просто <span class="kk">Сәлем!</span></div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Менің атым Иван. Сіздің атыңыз кім?</div>
+        <div class="ph-ru">Меня зовут Иван. Как вас зовут?</div>
+        <div class="ph-when">Дословно «моё имя — Иван», «ваше имя — кто?». Подставь своё имя.</div>
+        <button type="button" class="ph-link" data-open="possessive">почему так: 0.7 тәуелдік ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Танысқаныма қуаныштымын.</div>
+        <div class="ph-ru">Рад(а) познакомиться.</div>
+        <div class="ph-when">Сразу после имён. Длинно, но говорят именно так — учи целиком.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Қалыңыз қалай?</div>
+        <div class="ph-ru">Как ваши дела?</div>
+        <div class="ph-when">Ответ: <span class="kk">Жақсы, рахмет. Өзіңіз ше?</span> — «Хорошо, спасибо. А вы?»</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Мен Алматыда тұрамын.</div>
+        <div class="ph-ru">Я живу в Алматы.</div>
+        <div class="ph-when">Подставь свой город: <span class="kk">Астанада</span>, <span class="kk">Шымкентте</span>.</div>
+        <button type="button" class="ph-link" data-open="zhatys">почему так: 1.4 жатыс ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Сау болыңыз!</div>
+        <div class="ph-ru">До свидания!</div>
+        <div class="ph-when">Прощание. Другу — <span class="kk">Сау бол!</span></div>
+      </div>
+    </div>
+
+    <div class="ph-group">
+      <div class="ph-head"><span class="ph-icon" aria-hidden="true">🙏</span> Сыпайы сөздер · вежливость</div>
+      <div class="phrase">
+        <div class="ph-kk">Рахмет! Көп рахмет!</div>
+        <div class="ph-ru">Спасибо! Большое спасибо!</div>
+        <div class="ph-when">Всегда и везде.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Оқасы жоқ.</div>
+        <div class="ph-ru">Не за что.</div>
+        <div class="ph-when">Ответ на «рахмет». Не путать с «пожалуйста» в просьбе.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Кешіріңіз.</div>
+        <div class="ph-ru">Извините.</div>
+        <div class="ph-when">Привлечь внимание, пройти, переспросить.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Ештеңе етпейді.</div>
+        <div class="ph-ru">Ничего страшного.</div>
+        <div class="ph-when">Ответ на «кешіріңіз», когда перед тобой извинились.</div>
+      </div>
+    </div>
+
+    <div class="ph-group">
+      <div class="ph-head"><span class="ph-icon" aria-hidden="true">🛒</span> Базар мен дүкен · рынок и магазин</div>
+      <div class="phrase">
+        <div class="ph-kk">Бұл қанша тұрады?</div>
+        <div class="ph-ru">Сколько это стоит?</div>
+        <div class="ph-when">Показываешь на товар. Ответ будет в теңге — числа в теме 3.6.</div>
+        <button type="button" class="ph-link" data-open="numerals">числа: 3.6 Сан есім ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Бір келі алма беріңізші.</div>
+        <div class="ph-ru">Дайте, пожалуйста, килограмм яблок.</div>
+        <div class="ph-when">После числа множественного нет: <span class="kk">бір келі алма</span>, не «алмалар».</div>
+        <button type="button" class="ph-link" data-open="numerals">почему так: 3.6 Сан есім ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Қымбат екен. Арзанырақ болмай ма?</div>
+        <div class="ph-ru">Дороговато. А подешевле нельзя?</div>
+        <div class="ph-when">На базаре торгуются, это часть разговора.</div>
+        <button type="button" class="ph-link" data-open="adjectives">почему так: 3.4 -рақ ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Картамен төлесем бола ма?</div>
+        <div class="ph-ru">Можно оплатить картой?</div>
+        <div class="ph-when">Перед тем как платить. Наличные — <span class="kk">қолма-қол</span>.</div>
+        <button type="button" class="ph-link" data-open="conditional">почему так: 3.1 -са бола ма ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Пакет керек емес.</div>
+        <div class="ph-ru">Пакет не нужен.</div>
+        <div class="ph-when">На кассе.</div>
+        <button type="button" class="ph-link" data-open="negation">почему так: 0.12 емес ›</button>
+      </div>
+    </div>
+
+    <div class="ph-group">
+      <div class="ph-head"><span class="ph-icon" aria-hidden="true">🚕</span> Жолда · в дороге и в такси</div>
+      <div class="phrase">
+        <div class="ph-kk">Орталыққа апарыңызшы.</div>
+        <div class="ph-ru">Отвезите, пожалуйста, в центр.</div>
+        <div class="ph-when">Таксисту. Вместо <span class="kk">орталыққа</span> — любое место с окончанием «куда».</div>
+        <button type="button" class="ph-link" data-open="barys">почему так: 1.2 барыс ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Осы жерде тоқтаңызшы.</div>
+        <div class="ph-ru">Остановите здесь, пожалуйста.</div>
+        <div class="ph-when">Когда приехал.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Метро қайда?</div>
+        <div class="ph-ru">Где метро?</div>
+        <div class="ph-when">Подставь что ищешь: <span class="kk">Дәретхана қайда?</span> — «Где туалет?»</div>
+        <button type="button" class="ph-link" data-open="question-words">почему так: 0.10 сұрау есімдіктері ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Мен адасып қалдым.</div>
+        <div class="ph-ru">Я заблудился(-ась).</div>
+        <div class="ph-when">Прохожему, с картой в руке.</div>
+        <button type="button" class="ph-link" data-open="compound-verb">почему так: 2.8 қалу ›</button>
+      </div>
+    </div>
+
+    <div class="ph-group">
+      <div class="ph-head"><span class="ph-icon" aria-hidden="true">🍵</span> Қонақта · в гостях</div>
+      <div class="phrase">
+        <div class="ph-kk">Ас болсын!</div>
+        <div class="ph-ru">Приятного аппетита!</div>
+        <div class="ph-when">Тем, кто ест или садится за стол.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Өте дәмді екен!</div>
+        <div class="ph-ru">Очень вкусно!</div>
+        <div class="ph-when">Хозяйке — обязательно, это ждут.</div>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Рахмет, тойдым.</div>
+        <div class="ph-ru">Спасибо, я наелся(-ась).</div>
+        <div class="ph-when">Когда подкладывают ещё. Иначе будут подкладывать дальше.</div>
+        <button type="button" class="ph-link" data-open="past-simple">почему так: 2.4 жедел өткен шақ ›</button>
+      </div>
+      <div class="phrase">
+        <div class="ph-kk">Дастарқаныңызға береке!</div>
+        <div class="ph-ru">Благополучия вашему столу!</div>
+        <div class="ph-when">Хозяевам, когда встаёшь из-за стола. Спасибо по-казахски за угощение.</div>
+        <button type="button" class="ph-link" data-open="possessive">почему так: 0.7 тәуелдік ›</button>
+      </div>
+    </div>
+
+    <div class="tip"><b>Как учить.</b> Не больше пяти фраз за раз. Скажи каждую вслух три раза, потом закрой перевод и вспомни по-русски. Щит выучи первым: с ним любой разговор можно продолжить, даже когда не понял ни слова.</div>
+  </div>
+
+  <div class="pane pane-texts">
+    <p class="scene-intro">Собеседник говорит первым, ты выбираешь ответ. Разговор идёт дальше только с верного хода, а на неверном видно, почему он не подходит. Все фразы — со вкладки «Тіркестер».</p>
+    <label class="scene-hints"><input type="checkbox" id="sceneHints"> Показывать перевод</label>
+    <div class="scene-list" id="sceneList"></div>
+    <div class="scene-stage" id="sceneStage"></div>
+  </div>
+</div>
+
 <!-- ============ СӨЗДІК ============ -->
 <div class="screen topic-screen" id="screen-vocab" style="--tint-color:var(--negiz)">
   <div class="topic-topbar"><button type="button" class="back-btn" data-back>← Все темы</button></div>
@@ -8271,7 +8662,15 @@
     var last;
     try{ last = localStorage.getItem(LAST_TOPIC_KEY); }catch(e){}
     var title = last ? topicTitleMap()[last] : null;
-    if(!last || !title){ box.style.display = "none"; return; }
+    // Новому человеку вместо пустого «Продолжить» — куда идти первым.
+    if(!last || !title){
+      box.innerHTML = '<button type="button" class="start-here" data-open="speak">' +
+        '<span class="review-why">Начать здесь</span><b>Сөйлесу · живые фразы</b>' +
+        '<span class="review-why">Что сказать сегодня: «не понял», знакомство, базар, такси</span></button>' +
+        '<button type="button" class="start-alt" data-open="harmony-vowels">или сразу грамматика с темы 0.1 →</button>';
+      box.style.display = "block";
+      return;
+    }
     box.innerHTML = '<button type="button" class="review-item" data-open="'+last+'" style="border-color:#DDE2E8;margin:0;">' +
                     '<span class="review-why">Продолжить</span>' +
                     '<span class="review-title">'+title+'</span></button>';
@@ -8298,6 +8697,225 @@
     var hourWord = hours % 1 ? "часа" : plural(hours, "час", "часа", "часов");
     el.textContent = "Сейчас открыто " + n + " " + plural(n, "тема", "темы", "тем") +
                      " — примерно " + hours + " " + hourWord + " занятий.";
+  }
+
+  /* ================= СӨЙЛЕСУ: СЦЕНЫ ================= */
+  /* Сцена — цепочка ходов. Ход собеседника {who, kk, ru} печатается сам,
+     ход ученика {opts:[…]} ждёт выбора: верный вариант (ok:true) уходит
+     в чат и двигает сцену, неверный гаснет и показывает why. Фразы взяты
+     со вкладки «Тіркестер» — сцена проверяет узнавание, а не новые слова.
+     Строка с ru:true — реплика по-русски (собеседник переходит на русский). */
+  var SCENES_KEY = "kkScenesV1";
+  var SCENES = [
+    { id:"meet", title:"Танысу", ru:"знакомство", setting:"Новая коллега подходит к тебе на работе.",
+      steps:[
+        { who:"Айгүл", kk:"Сәлеметсіз бе!", ru:"Здравствуйте!" },
+        { opts:[
+          { kk:"Сәлеметсіз бе!", ru:"Здравствуйте!", ok:true },
+          { kk:"Сау болыңыз!", ru:"До свидания!", why:"Это прощание. На приветствие отвечают тем же приветствием." }
+        ]},
+        { who:"Айгүл", kk:"Менің атым Айгүл. Сіздің атыңыз кім?", ru:"Меня зовут Айгуль. Как вас зовут?" },
+        { opts:[
+          { kk:"Мен Алматыда тұрамын.", ru:"Я живу в Алматы.", why:"Спросили имя, а не город: «атыңыз кім?» — «ваше имя кто?»." },
+          { kk:"Менің атым Иван.", ru:"Меня зовут Иван.", ok:true }
+        ]},
+        { who:"Айгүл", kk:"Танысқаныма қуаныштымын. Қазақша білесіз бе?", ru:"Рада познакомиться. Вы знаете казахский?" },
+        { opts:[
+          { kk:"Оқасы жоқ.", ru:"Не за что.", why:"«Оқасы жоқ» — ответ на «рахмет». Здесь спросили, знаешь ли ты казахский." },
+          { kk:"Аздап. Мен қазақ тілін үйреніп жүрмін.", ru:"Немного. Я учу казахский язык.", ok:true }
+        ]},
+        { who:"Айгүл", kk:"Жарайсыз! Қалыңыз қалай?", ru:"Молодец! Как ваши дела?" },
+        { opts:[
+          { kk:"Жақсы, рахмет. Өзіңіз ше?", ru:"Хорошо, спасибо. А вы?", ok:true },
+          { kk:"Бұл қанша тұрады?", ru:"Сколько это стоит?", why:"Это вопрос о цене. Спросили, как дела: «қалыңыз қалай?»." }
+        ]},
+        { who:"Айгүл", kk:"Жақсы. Сау болыңыз!", ru:"Хорошо. До свидания!" },
+        { opts:[
+          { kk:"Ас болсын!", ru:"Приятного аппетита!", why:"Так говорят за едой. Попрощались — прощайся в ответ." },
+          { kk:"Сау болыңыз!", ru:"До свидания!", ok:true }
+        ]}
+      ]},
+    { id:"bazar", title:"Базарда", ru:"на рынке", setting:"Ты покупаешь яблоки на Зелёном базаре.",
+      steps:[
+        { who:"Сатушы", kk:"Сәлеметсіз бе! Не аласыз?", ru:"Здравствуйте! Что берёте?" },
+        { opts:[
+          { kk:"Рахмет, тойдым.", ru:"Спасибо, я наелся.", why:"Так отказываются от еды в гостях. Продавец спрашивает, что ты покупаешь." },
+          { kk:"Бір келі алма беріңізші.", ru:"Дайте, пожалуйста, килограмм яблок.", ok:true }
+        ]},
+        { who:"Сатушы", kk:"Қызыл ма, жасыл ма?", ru:"Красные или зелёные?" },
+        { opts:[
+          { kk:"Иә.", ru:"Да.", why:"На вопрос с «или» не отвечают «да»: повторяют то, что выбрал. Как и по-русски — «красные»." },
+          { kk:"Қызыл.", ru:"Красные.", ok:true }
+        ]},
+        { who:"Сатушы", kk:"Мінеки. Тағы не керек?", ru:"Вот, пожалуйста. Что ещё нужно?" },
+        { opts:[
+          { kk:"Басқа ештеңе керек емес. Қанша тұрады?", ru:"Больше ничего не нужно. Сколько стоит?", ok:true },
+          { kk:"Бұл қазақша қалай болады?", ru:"Как это будет по-казахски?", why:"Этим спрашивают слово. Продавец спросил, нужно ли что-то ещё." }
+        ]},
+        { who:"Сатушы", kk:"Мың екі жүз теңге.", ru:"Тысяча двести тенге." },
+        { opts:[
+          { kk:"Қымбат екен. Арзанырақ болмай ма?", ru:"Дороговато. А подешевле нельзя?", ok:true },
+          { kk:"Ештеңе етпейді.", ru:"Ничего страшного.", why:"Так отвечают на извинение. Назвали цену — можно поторговаться." }
+        ]},
+        { who:"Сатушы", kk:"Жарайды, мың теңге.", ru:"Ладно, тысяча тенге." },
+        { opts:[
+          { kk:"Рахмет! Картамен төлесем бола ма?", ru:"Спасибо! Можно картой?", ok:true },
+          { kk:"Мен адасып қалдым.", ru:"Я заблудился.", why:"Это просьба о помощи на улице. Цена названа — пора платить." }
+        ]},
+        { who:"Сатушы", kk:"Болады. Пакет керек пе?", ru:"Можно. Пакет нужен?" },
+        { opts:[
+          { kk:"Жоқ, пакет керек емес. Рахмет!", ru:"Нет, пакет не нужен. Спасибо!", ok:true },
+          { kk:"Қызыл.", ru:"Красные.", why:"Цвет уже выбран. Сейчас спросили про пакет." }
+        ]}
+      ]},
+    { id:"cafe", title:"Кафеде", ru:"в кафе: тебе отвечают по-русски", setting:"Ты заказываешь чай. Официант слышит акцент.",
+      steps:[
+        { who:"Даяшы", kk:"Сәлеметсіз бе! Не ішесіз?", ru:"Здравствуйте! Что будете пить?" },
+        { opts:[
+          { kk:"Шай беріңізші.", ru:"Чай, пожалуйста.", ok:true },
+          { kk:"Мен Алматыда тұрамын.", ru:"Я живу в Алматы.", why:"Спросили, что ты будешь пить: «не ішесіз?»." }
+        ]},
+        { who:"Даяшы", kk:"Қара шай ма, көк шай ма?", ru:"Чёрный или зелёный?" },
+        { opts:[
+          { kk:"Иә, рахмет.", ru:"Да, спасибо.", why:"Вопрос с «или»: «да» на него не ответ. Назови, какой чай." },
+          { kk:"Қара шай.", ru:"Чёрный.", ok:true }
+        ]},
+        { who:"Даяшы", ruLine:true, kk:"Может, по-русски вам удобнее?", ru:"Официант перешёл на русский." },
+        { opts:[
+          { kk:"Да, давайте.", ru:"Согласиться на русский.", why:"Можно и так, но тогда казахский на сегодня кончился. Вежливо попроси остаться на казахском — почти всегда соглашаются с радостью." },
+          { kk:"Жоқ, рахмет. Қазақша сөйлесейікші, мен үйреніп жүрмін.", ru:"Нет, спасибо. Давайте по-казахски, я учу.", ok:true }
+        ]},
+        { who:"Даяшы", kk:"Жарайсыз! Сүт қосайын ба?", ru:"Молодец! Добавить молока?" },
+        { opts:[
+          { kk:"Иә, аздап.", ru:"Да, немного.", ok:true },
+          { kk:"Сау болыңыз!", ru:"До свидания!", why:"Рано прощаться: спросили, добавить ли молока. Тут «иә» как раз подходит — вопрос без «или»." }
+        ]},
+        { who:"Даяшы", kk:"Мінеки, шайыңыз.", ru:"Вот ваш чай." },
+        { opts:[
+          { kk:"Оқасы жоқ.", ru:"Не за что.", why:"«Оқасы жоқ» отвечают на благодарность. Здесь благодаришь ты." },
+          { kk:"Көп рахмет!", ru:"Большое спасибо!", ok:true }
+        ]}
+      ]},
+    { id:"taxi", title:"Таксиде", ru:"в такси: говорят слишком быстро", setting:"Ты садишься в такси. Водитель говорит быстро.",
+      steps:[
+        { who:"Жүргізуші", kk:"Сәлеметсіз бе! Қайда барасыз?", ru:"Здравствуйте! Куда едете?" },
+        { opts:[
+          { kk:"Бұл қанша тұрады?", ru:"Сколько это стоит?", why:"Сначала спросили, куда ехать: «қайда барасыз?»." },
+          { kk:"Орталыққа апарыңызшы.", ru:"Отвезите в центр, пожалуйста.", ok:true }
+        ]},
+        { who:"Жүргізуші", kk:"Абай даңғылымен барайық па, әлде Сәтбаев көшесімен бе?", ru:"(быстро) Поедем по проспекту Абая или по улице Сатпаева?" },
+        { opts:[
+          { kk:"Иә.", ru:"Да.", why:"Ты не понял вопрос — и в нём есть «әлде», «или». Честнее и полезнее включить щит." },
+          { kk:"Кешіріңіз, түсінбедім. Баяуырақ сөйлеңізші.", ru:"Извините, не понял. Говорите помедленнее.", ok:true }
+        ]},
+        { who:"Жүргізуші", kk:"Абаймен барайық па?", ru:"(медленно) Поедем по Абая?" },
+        { opts:[
+          { kk:"Иә, жақсы.", ru:"Да, хорошо.", ok:true },
+          { kk:"Қайталаңызшы.", ru:"Повторите, пожалуйста.", why:"Водитель уже повторил медленно, и вопрос простой — «по Абая?». Можно ответить." }
+        ]},
+        { who:"Жүргізуші", kk:"Келдік. Осы жер ме?", ru:"Приехали. Это место?" },
+        { opts:[
+          { kk:"Иә, осы жерде тоқтаңызшы. Рахмет!", ru:"Да, остановите здесь. Спасибо!", ok:true },
+          { kk:"Метро қайда?", ru:"Где метро?", why:"Вы уже приехали. Попроси остановиться." }
+        ]}
+      ]}
+  ];
+
+  function scenesDone(){
+    try{ return JSON.parse(localStorage.getItem(SCENES_KEY)) || {}; }catch(e){ return {}; }
+  }
+  function markSceneDone(id){
+    var d = scenesDone(); d[id] = Date.now();
+    try{ localStorage.setItem(SCENES_KEY, JSON.stringify(d)); }catch(e){}
+  }
+
+  var scenePlay = null; // {scene, i}
+
+  function renderSceneList(){
+    var list = document.getElementById("sceneList");
+    if(!list) return;
+    var done = scenesDone();
+    list.innerHTML = SCENES.map(function(s){
+      var on = scenePlay && scenePlay.scene.id === s.id;
+      return '<button type="button" class="scene-btn'+(on?' on':'')+'" data-scene="'+s.id+'">' +
+        '<span class="row-title">'+s.title+'<span class="row-title-ru">'+s.ru+'</span></span>' +
+        '<span class="row-check'+(done[s.id]?' on':'')+'" aria-hidden="true">✓</span>' +
+        '<span class="row-arrow" aria-hidden="true">›</span></button>';
+    }).join("");
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+  function bubbleHtml(cls, who, kk, ru){
+    return '<div class="bubble '+cls+'"><span class="b-who">'+esc(who)+'</span>' +
+      '<div class="b-kk">'+esc(kk)+'</div><div class="b-ru">'+esc(ru)+'</div></div>';
+  }
+
+  function startScene(id){
+    var scene = SCENES.filter(function(s){ return s.id === id; })[0];
+    if(!scene) return;
+    scenePlay = { scene:scene, i:0 };
+    var stage = document.getElementById("sceneStage");
+    stage.innerHTML = '<div class="scene-title">'+esc(scene.title)+' · '+esc(scene.ru)+'</div>' +
+      '<div class="scene-setting">'+esc(scene.setting)+'</div><div class="chat"></div>' +
+      '<div class="scene-opts"></div><div class="scene-why"></div>';
+    renderSceneList();
+    advanceScene();
+    stage.scrollIntoView({block:"start", behavior:"smooth"});
+  }
+
+  // Печатает реплики собеседника до ближайшего хода ученика.
+  function advanceScene(){
+    var p = scenePlay, stage = document.getElementById("sceneStage");
+    var chat = stage.querySelector(".chat"), opts = stage.querySelector(".scene-opts");
+    stage.querySelector(".scene-why").textContent = "";
+    opts.innerHTML = "";
+    while(p.i < p.scene.steps.length && !p.scene.steps[p.i].opts){
+      var st = p.scene.steps[p.i++];
+      chat.insertAdjacentHTML("beforeend", bubbleHtml("them" + (st.ruLine ? " ru-line" : ""), st.who, st.kk, st.ru));
+    }
+    if(p.i >= p.scene.steps.length){ finishScene(); return; }
+    // Порядок вариантов перемешан, иначе верный быстро запоминается по месту.
+    var choices = p.scene.steps[p.i].opts.slice().sort(function(){ return Math.random() - 0.5; });
+    opts.innerHTML = choices.map(function(o){
+      var k = p.scene.steps[p.i].opts.indexOf(o);
+      return '<button type="button" class="scene-opt" data-opt="'+k+'">'+esc(o.kk)+'<span class="opt-ru">'+esc(o.ru)+'</span></button>';
+    }).join("");
+  }
+
+  function chooseSceneOpt(btn){
+    var p = scenePlay;
+    if(!p || btn.classList.contains("bad")) return;
+    var o = p.scene.steps[p.i].opts[+btn.dataset.opt];
+    var stage = document.getElementById("sceneStage");
+    if(!o.ok){
+      btn.classList.add("bad");
+      btn.setAttribute("aria-disabled", "true");
+      stage.querySelector(".scene-why").textContent = o.why || "Не подходит. Попробуй другой ответ.";
+      return;
+    }
+    stage.querySelector(".chat").insertAdjacentHTML("beforeend", bubbleHtml("you", "Сен", o.kk, o.ru));
+    p.i++;
+    advanceScene();
+  }
+
+  function finishScene(){
+    var p = scenePlay, stage = document.getElementById("sceneStage");
+    markSceneDone(p.scene.id);
+    var idx = SCENES.indexOf(p.scene), next = SCENES[idx + 1];
+    stage.querySelector(".scene-opts").innerHTML =
+      '<div class="scene-done"><b>Сцена пройдена.</b> Завтра пройди её ещё раз без перевода — и скажи свои реплики вслух, прежде чем нажать.</div>' +
+      '<div class="scene-actions"><button type="button" class="ghost" data-scene="'+p.scene.id+'">Ещё раз</button>' +
+      (next ? '<button type="button" data-scene="'+next.id+'">Дальше: '+esc(next.title)+' →</button>' : '') + '</div>';
+    renderSceneList();
+  }
+
+  function initSpeak(){
+    var hints = document.getElementById("sceneHints");
+    if(hints) hints.addEventListener("change", function(){
+      document.getElementById("sceneStage").classList.toggle("hints", hints.checked);
+    });
+    renderSceneList();
   }
 
   /* ================= СЛОВАРЬ И ТАП-ПЕРЕВОД ================= */
@@ -9579,6 +10197,11 @@
     var vocabBtn = e.target.closest("[data-vocab]");
     if(vocabBtn){ handleVocabAction(vocabBtn.dataset.vocab); return; }
 
+    var sceneBtn = e.target.closest("[data-scene]");
+    if(sceneBtn){ startScene(sceneBtn.dataset.scene); return; }
+    var opt = e.target.closest(".scene-opt");
+    if(opt){ chooseSceneOpt(opt); return; }
+
     var open = e.target.closest("[data-open]");
     if(open && !open.disabled){ goTopic(open.dataset.open); return; }
 
@@ -9634,7 +10257,9 @@
       localStorage.removeItem(LAST_TOPIC_KEY);
       localStorage.removeItem(VOCAB_KEY);
       localStorage.removeItem(KEYS_HIDDEN_KEY);
+      localStorage.removeItem(SCENES_KEY);
     }catch(e){}
+    renderSceneList();
     document.querySelectorAll("input.blank, select.mc").forEach(function(i){
       i.value = ""; i.classList.remove("ok","bad");
     });
@@ -9658,12 +10283,14 @@
     // их разметку в каждой теме и не забыть при добавлении новой.
     document.querySelectorAll(".topic-screen").forEach(function(screen){
       if(!screen.querySelector(".subnav")) return;
+      if(screen.id === "screen-speak"){ addPaneNext(screen, ".pane-rule", "texts", "Дальше: сцены-диалоги"); return; }
       addPaneNext(screen, ".pane-rule",  "texts", "Дальше: тексты для чтения");
       addPaneNext(screen, ".pane-texts", "quiz",  "Дальше: задания");
     });
 
     seedVocabFromWordsets();
     initSuffixTool();
+    initSpeak();
     initHeroDemo();
     initKkKeys();
     initInstall();
