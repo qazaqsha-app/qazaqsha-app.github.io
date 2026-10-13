@@ -86,11 +86,12 @@
      читаются как заметки маркером. Значит и текст в них надо приколотить
      к тёмной краске, иначе --ink перевернётся и станет невидимым. */
   body.dark .trap, body.dark .tip, body.dark .contrast .label,
-  body.dark .contrast p, body.dark .review-title,
+  body.dark .contrast p,
   body.dark .harm-cell{ color:var(--ink-fixed); }
   /* .sufbox сюда НЕ добавлять: у неё фон var(--card), который в тёмной теме
      переворачивается вместе со всем остальным. Приколотишь цвет — основа
-     слова станет чёрным по чёрному. */
+     слова станет чёрным по чёрному. То же с .review-title: кнопка
+     .review-item тоже на var(--card), и приколоченный текст пропадал. */
 
   html{font-size:100%; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
   html.font-plus{font-size:112%;}
@@ -289,6 +290,17 @@
   .contrast .label{font-size:0.78rem; font-weight:800; margin-bottom:6px; color:var(--negiz-deep);}
   .contrast p{margin:0 0 6px; font-size:0.9rem;}
   .contrast p:last-child{margin-bottom:0;}
+  /* Схема «корень + жұрнақ + жалғау» в 3.8. Плашки со светлым фоном
+     в обеих темах, поэтому цвет текста прибит (как у .contrast). */
+  .wordbuild{display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin:0 0 16px;}
+  .wb-part{display:flex; flex-direction:column; align-items:center; border-radius:10px; padding:5px 7px; color:var(--ink-fixed); border:2px solid transparent;}
+  .wb-part b{font-size:1.05rem;}
+  .wb-part i{font-style:normal; font-size:0.62rem; font-weight:700; text-transform:uppercase; opacity:0.75;}
+  .wb-root{background:#FFFFFF; border-color:#D8D2C4;}
+  .wb-der{background:var(--keneyu-tint); border-color:var(--keneyu); color:var(--keneyu-deep);}
+  .wb-inf{background:var(--negiz-tint); color:var(--negiz-deep);}
+  .wb-plus{font-weight:800; color:var(--muted);}
+  .wb-eq{flex-basis:100%; font-size:0.95rem;}
 
   .trap{
     background:#FDF0EE; border-left:4px solid var(--bad); border-radius:0 10px 10px 0;
@@ -988,10 +1000,11 @@
         <span class="row-check" data-check="time-date" aria-hidden="true">✓</span>
         <span class="row-arrow" aria-hidden="true">›</span>
       </button>
-      <button type="button" class="topic-row" disabled>
+      <button type="button" class="topic-row" data-open="word-formation">
         <span class="marker" style="background:var(--keneyu)"></span>
         <span class="row-title"><span class="topic-num">3.8</span> Сөзжасам<span class="row-title-ru">-шы, -лық, -сыз, -дай: как из слова делается слово</span></span>
-        <span class="row-soon">скоро</span>
+        <span class="row-check" data-check="word-formation" aria-hidden="true">✓</span>
+        <span class="row-arrow" aria-hidden="true">›</span>
       </button>
       <button type="button" class="topic-row" disabled>
         <span class="marker" style="background:var(--keneyu)"></span>
@@ -6935,7 +6948,7 @@
         <p class="storytext">Біздің отбасымызда үш бала бар: ағам, мен және інім. Бір үйде тұрамыз, бірақ бәріміз әртүрліміз.<br><br>Ағам менен үлкен. Ол ұзын, күшті және мықты. Күнде спорт ойнайды. Ауыр жұмысты да жеңіл істейді. Ағам — үйдегі ең күшті адам.<br><br>Мен ағамнан кішімін, бірақ інімнен үлкенмін. Кітапты көп оқимын, мектепте сабағым жақсы. Анам мені ақылды бала көреді. Спортта ағамнан күшті емеспін, бірақ сабақта одан жақсырақ оқимын.<br><br>Інім ең кіші, ең жас. Ол әлі мектепке бармайды. Күні бойы ойнайды, тым қатты сөйлейді. Бірақ ол — үйдегі ең бақытты адам.<br><br>Ағамның бөлмесі кең, менікі тар. Оның терезесі үлкен, бөлмесі жарық. Менің бөлмем кішірек, бірақ маған ыңғайлы.<br><br>Кешке анам тамақ пісіреді. Оның сорпасы өте дәмді. Ағам көп жейді, інім аз жейді. Мен ортадамын: не көп, не аз.<br><br>Біз әртүрліміз, бірақ бір отбасымыз. Ең жақсысы — сол.</p>
         <button class="btn btn-translate" type="button">Показать перевод</button>
         <p class="ru-translation">В нашей семье трое детей: старший брат, я и младший брат. Живём в одном доме, но все мы разные.<br><br>Брат старше меня. Он высокий, сильный и крепкий. Каждый день занимается спортом. Даже тяжёлую работу делает легко. Брат — самый сильный человек в доме.<br><br>Я младше брата, но старше младшего. Читаю много книг, в школе учусь хорошо. Мама считает меня умным ребёнком. В спорте я слабее брата, но в учёбе учусь лучше него.<br><br>Младший брат самый маленький, самый юный. Он ещё не ходит в школу. Целыми днями играет, говорит слишком громко. Но он — самый счастливый человек в доме.<br><br>Комната брата просторная, моя тесная. У него окно большое, в комнате светло. Моя комната поменьше, но мне удобно.<br><br>Вечером мама готовит еду. Её суп очень вкусный. Брат ест много, младший ест мало. Я посередине: ни много, ни мало.<br><br>Мы разные, но одна семья. Это и есть самое лучшее.</p>
-        <p class="why-note"><b>Почему так:</b> сравнений в тексте восемь, и все через шығыс септік. <span class="kk">Ағам ме<b>нен</b> үлкен</span>, <span class="kk">ағам<b>нан</b> кішімін</span>, <span class="kk">інім<b>нен</b> үлкенмін</span>, <span class="kk">о<b>дан</b> жақсырақ</span>. Ни одного «чем» отдельным словом — падежа хватает.<br><br><span class="kk">Әртүрліміз</span>, <span class="kk">кішімін</span>, <span class="kk">үлкенмін</span>, <span class="kk">әлсізмін</span> — прилагательное в роли сказуемого, с жіктік жалғау из темы 0.4.<br><br>А <span class="kk">үлкен</span> в первом абзаце и <span class="kk">үлкен</span> в пятом — одно и то же слово, хотя по-русски это «старший» и «большое». Прилагательное не подстраивается ни под кого.</p>
+        <p class="why-note"><b>Почему так:</b> сравнений в тексте восемь, и все через шығыс септік. <span class="kk">Ағам ме<b>нен</b> үлкен</span>, <span class="kk">ағам<b>нан</b> кішімін</span>, <span class="kk">інім<b>нен</b> үлкенмін</span>, <span class="kk">о<b>дан</b> жақсырақ</span>. Ни одного «чем» отдельным словом — падежа хватает.<br><br><span class="kk">Әртүрліміз</span>, <span class="kk">кішімін</span>, <span class="kk">үлкенмін</span> — прилагательное в роли сказуемого, с жіктік жалғау из темы 0.4.<br><br>А <span class="kk">үлкен</span> в первом абзаце и <span class="kk">үлкен</span> в пятом — одно и то же слово, хотя по-русски это «старший» и «большое». Прилагательное не подстраивается ни под кого.</p>
       </div>
     </div>
 
@@ -7659,10 +7672,229 @@
       <button class="btn btn-reveal" type="button">Показать ответы</button>
       <span class="quiz-result" aria-live="polite"></span>
     </div>
+    <button type="button" class="next-card" data-open="word-formation">
+      <span class="next-marker"></span>
+      <span class="next-text">
+        <span class="next-label">Келесі · Тема 3.8</span>
+        <span class="next-title">Сөзжасам — как из слова делается новое слово</span>
+      </span>
+      <span class="next-arrow">→</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ 3.8 СӨЗЖАСАМ ============ -->
+<div class="screen topic-screen" id="screen-word-formation" data-topic="word-formation" style="--tint-color:var(--keneyu)">
+  <div class="topic-topbar"><button type="button" class="back-btn" data-back>← Все темы</button></div>
+  <div class="topic-header">
+    <span class="marker" style="background:var(--keneyu)"></span>
+    <h2><span class="topic-num">3.8</span> Сөзжасам</h2>
+    <span class="done-badge" data-badge="word-formation">✓ пройдено</span>
+  </div>
+  <div class="topic-subtitle">Как из слова делается новое слово: балық → балықшы, дос → достық, тұз → тұзсыз, тау → таудай. Сорок таких слов ты уже знаешь.</div>
+  <div class="subnav">
+    <button type="button" class="subnav-btn active" data-pane="rule"><b>Ереже</b><i>правило</i></button>
+    <button type="button" class="subnav-btn" data-pane="texts"><b>Мәтін</b><i>тексты</i></button>
+    <button type="button" class="subnav-btn" data-pane="quiz"><b>Тапсырма</b><i>задания</i></button>
+  </div>
+
+  <div class="pane pane-rule active">
+    <p>Начнём с того, что ты уже знаешь. <span class="kk">Оқушы</span>, <span class="kk">жазушы</span>, <span class="kk">балықшы</span>, <span class="kk">денсаулық</span>, <span class="kk">шындық</span>, <span class="kk">ақылды</span>, <span class="kk">дәмді</span>, <span class="kk">қатесіз</span> — около сорока слов курса собраны по правилам этой темы. До сих пор ты учил их целиком. Здесь разберём, как они устроены, и тогда из каждого знакомого корня получится ещё два-три слова без словаря.</p>
+
+    <p><b>1. Жұрнақ и жалғау — два вида окончаний.</b> Всё, что было до сих пор — падежи, көптік, тәуелдік, жіктік, — это <b>жалғау</b>: оно меняет форму слова, но не делает нового. <b>Жұрнақ</b> делает новое слово, у которого своя строка в словаре.</p>
+    <table>
+      <tr><th></th><th>Что делает</th><th>Пример</th></tr>
+      <tr><td class="kk">жұрнақ</td><td>новое слово</td><td class="kk">балық → балық<b>шы</b></td></tr>
+      <tr><td class="kk">жалғау</td><td>форму слова</td><td class="kk">балықшы → балықшы<b>ға</b></td></tr>
+    </table>
+    <p>Порядок жёсткий: <b>корень → жұрнақ → жалғау</b>. Сначала слово собирается, потом склоняется.</p>
+    <div class="wordbuild" role="img" aria-label="балық плюс шы плюс лар плюс ға равно балықшыларға, рыбакам">
+      <span class="wb-part wb-root"><b class="kk">балық</b><i>корень</i></span>
+      <span class="wb-plus" aria-hidden="true">+</span>
+      <span class="wb-part wb-der"><b class="kk">шы</b><i>жұрнақ</i></span>
+      <span class="wb-plus" aria-hidden="true">+</span>
+      <span class="wb-part wb-inf"><b class="kk">лар</b><i>жалғау</i></span>
+      <span class="wb-plus" aria-hidden="true">+</span>
+      <span class="wb-part wb-inf"><b class="kk">ға</b><i>жалғау</i></span>
+      <span class="wb-eq">= <b class="kk">балықшыларға</b> «рыбакам»</span>
+    </div>
+    <p>Работает и обратно, когда слово незнакомое: отрежь справа жалғау, потом жұрнақ — останется корень, который ты, скорее всего, знаешь.</p>
+
+    <p><b>2. <span class="kk">-шы/-ші</span> — кто этим занимается.</b> Вариантов два, только по ряду: буква всегда <span class="kk">ш</span>, что бы ни стояло перед ней.</p>
+    <table>
+      <tr><th>Корень</th><th>Слово</th><th>Русский</th></tr>
+      <tr><td class="kk">балық</td><td class="kk">балық<b>шы</b></td><td>рыбак</td></tr>
+      <tr><td class="kk">ән</td><td class="kk">ән<b>ші</b></td><td>певец</td></tr>
+      <tr><td class="kk">жұмыс</td><td class="kk">жұмыс<b>шы</b></td><td>рабочий</td></tr>
+      <tr><td class="kk">сурет</td><td class="kk">сурет<b>ші</b></td><td>художник</td></tr>
+      <tr><td class="kk">жылқы</td><td class="kk">жылқы<b>шы</b></td><td>табунщик</td></tr>
+    </table>
+    <p><b>От глагола — через <span class="kk">-у</span>.</b> Сначала глагол становится словом-действием (<span class="kk">оқу</span> «чтение», как в <span class="kk">ұшуға дейін</span> из темы 3.3), и уже к нему цепляется <span class="kk">-шы</span>:</p>
+    <table>
+      <tr><th>Глагол</th><th>Через -у</th><th>Кто</th></tr>
+      <tr><td class="kk">оқы</td><td class="kk">оқу</td><td class="kk">оқу<b>шы</b> ученик</td></tr>
+      <tr><td class="kk">жаз</td><td class="kk">жазу</td><td class="kk">жазу<b>шы</b> писатель</td></tr>
+      <tr><td class="kk">сат</td><td class="kk">сату</td><td class="kk">сату<b>шы</b> продавец</td></tr>
+      <tr><td class="kk">тыңда</td><td class="kk">тыңдау</td><td class="kk">тыңдау<b>шы</b> слушатель</td></tr>
+    </table>
+
+    <p><b>3. <span class="kk">-лы/-лі</span> и <span class="kk">-сыз/-сіз</span> — «с чем-то» и «без».</b> Пара-противоположность, и учить её удобнее вместе. <span class="kk">-лы</span> даёт прилагательное «имеющий, полный чего-то», <span class="kk">-сыз</span> — «лишённый».</p>
+    <table>
+      <tr><th>Корень</th><th>С чем</th><th>Без чего</th></tr>
+      <tr><td class="kk">тұз соль</td><td class="kk">тұз<b>ды</b> солёный</td><td class="kk">тұз<b>сыз</b> несолёный</td></tr>
+      <tr><td class="kk">дәм вкус</td><td class="kk">дәм<b>ді</b> вкусный</td><td class="kk">дәм<b>сіз</b> безвкусный</td></tr>
+      <tr><td class="kk">ақыл ум</td><td class="kk">ақыл<b>ды</b> умный</td><td class="kk">ақыл<b>сыз</b> глупый</td></tr>
+      <tr><td class="kk">бақыт счастье</td><td class="kk">бақыт<b>ты</b> счастливый</td><td class="kk">бақыт<b>сыз</b> несчастный</td></tr>
+    </table>
+    <p>У <span class="kk">-сыз</span> вариантов два, только по ряду. У <span class="kk">-лы</span> — шесть, и выбираются они точно как көптік из темы 0.6: <span class="kk">л</span> после гласного и <span class="kk">р, у, й</span> (<span class="kk">пайда<b>лы</b></span>), <span class="kk">д</span> после <span class="kk">л, м, н, ң, з, ж</span> (<span class="kk">ақыл<b>ды</b></span>), <span class="kk">т</span> после глухого (<span class="kk">бақыт<b>ты</b></span>). Новой таблицы учить не надо — она у тебя уже есть.</p>
+    <p><span class="kk">-сыз</span> работает и как русское «без» во фразе: <span class="kk">шайды қант<b>сыз</b> ішемін</span> — «пью чай без сахара». Противоположность здесь — көмектес из темы 1.6: <span class="kk">қант<b>пен</b></span> «с сахаром».</p>
+
+    <p><b>4. <span class="kk">-лық/-лік</span> — отвлечённое понятие.</b> Из признака делает «то, что этим признаком является», из предмета — вещь для него, из срока — то, что за этот срок.</p>
+    <table>
+      <tr><th>Корень</th><th>Слово</th><th>Русский</th></tr>
+      <tr><td class="kk">дос друг</td><td class="kk">дос<b>тық</b></td><td>дружба</td></tr>
+      <tr><td class="kk">жақсы хороший</td><td class="kk">жақсы<b>лық</b></td><td>добро</td></tr>
+      <tr><td class="kk">бай богатый</td><td class="kk">бай<b>лық</b></td><td>богатство</td></tr>
+      <tr><td class="kk">маман специалист</td><td class="kk">маман<b>дық</b></td><td>профессия</td></tr>
+      <tr><td class="kk">ай месяц</td><td class="kk">ай<b>лық</b></td><td>зарплата за месяц</td></tr>
+    </table>
+    <p>Буква та же самая, что у <span class="kk">-лы</span> и у көптік: <span class="kk">бала → бала<b>лық</b></span> «детство», <span class="kk">шын → шын<b>дық</b></span> «правда», <span class="kk">тыныш → тыныш<b>тық</b></span> «тишина». Выходит, три окончания выбирают первую букву по одному правилу: көптік, <span class="kk">-лы</span> и <span class="kk">-лық</span>.</p>
+
+    <p><b>5. <span class="kk">-дай/-дей</span> — «как, словно».</b> Сравнение одним окончанием. Здесь букв две: <span class="kk">т</span> после глухого, <span class="kk">д</span> во всех остальных случаях.</p>
+    <table>
+      <tr><th>Слово</th><th>Русский</th></tr>
+      <tr><td class="kk">тау<b>дай</b></td><td>с гору, огромный</td></tr>
+      <tr><td class="kk">айна<b>дай</b> таза</td><td>чистый как зеркало</td></tr>
+      <tr><td class="kk">бала<b>дай</b></td><td>как ребёнок</td></tr>
+      <tr><td class="kk">жігіт<b>тей</b> күшті</td><td>силён как парень</td></tr>
+    </table>
+    <p>Это короткая замена <span class="kk">сияқты</span> из темы 3.3: <span class="kk">бала сияқты</span> и <span class="kk">баладай</span> значат одно и то же.</p>
+
+    <div class="contrast">
+      <div class="label">-шы в слове и -шы после глагола — разные вещи</div>
+      <p>С темы 2.1 ты знаешь <span class="kk">айтшы</span> — «скажи-ка». Там <span class="kk">-шы</span> висит на повелительной форме и только смягчает просьбу. Жұрнақ <span class="kk">-шы</span> делает человека и встаёт после <span class="kk">-у</span>.</p>
+      <table>
+        <tr><td class="kk">айт<b>шы</b>!</td><td>скажи-ка!</td></tr>
+        <tr><td class="kk">айту<b>шы</b></td><td>тот, кто говорит</td></tr>
+        <tr><td class="kk">оқы<b>шы</b>!</td><td>почитай-ка!</td></tr>
+        <tr><td class="kk">оқу<b>шы</b></td><td>ученик</td></tr>
+      </table>
+      <p>Разница в одной букве <span class="kk">у</span>, и она решает всё.</p>
+    </div>
+    <div class="trap"><b>Не всё, что кончается на <span class="kk">-шы</span>, — профессия.</b> <span class="kk">Кіші</span> «младший» и <span class="kk">көрші</span> «сосед» — цельные слова. <span class="kk">Бірінші, екінші</span> — порядковое <span class="kk">-ншы</span> из темы 3.6.<br><br><b><span class="kk">-сыз</span> после имени — «без», <span class="kk">-сыз</span> после глагола — «вы».</b> <span class="kk">Қате<b>сіз</b></span> — «без ошибок», а <span class="kk">жете<b>сіз</b></span> — «вы доедете», это жіктік из темы 0.4. Смотри, к чему прицеплено.<br><br><b><span class="kk">-лы</span> и <span class="kk">-лық</span> — разные слова.</b> <span class="kk">Бала<b>лы</b> отбасы</span> — «семья с детьми», <span class="kk">бала<b>лық</b></span> — «детство». Одна буква <span class="kk">қ</span> меняет признак на понятие.<br><br><b>Жұрнақ всегда раньше жалғау.</b> <span class="kk">Балықшылар</span>, а не «балықларшы»: сначала появляется рыбак, потом рыбаков становится много.</div>
+    <div class="tip"><b>Закрыт долг темы 3.4.</b> Там из текста пришлось убрать <span class="kk">әлсізмін</span> «я слабый», потому что <span class="kk">-сыз</span> ещё не было. Теперь его можно разобрать: <span class="kk">әл</span> «сила» + <span class="kk">сіз</span> + <span class="kk">мін</span>. Жұрнақ, потом жіктік — тот же порядок, что в <span class="kk">балықшыларға</span>.<br><br><b>Чем это окупается.</b> Знаешь корень — понимаешь целое гнездо: <span class="kk">тұз, тұзды, тұзсыз</span>; <span class="kk">дос, достық</span>; <span class="kk">ән, әнші</span>. Учить слова гнёздами быстрее, чем по одному.</div>
+  </div>
+
+  <div class="pane pane-texts">
+    <p class="tap-hint">Нажми на любое казахское слово, чтобы увидеть перевод.</p>
+    <div class="reading-block">
+      <div class="text-label">Слова 40 · Жасалған сөздер — сделанные слова</div>
+      <div class="mini-text">
+        <div class="wordset">
+          <div><span class="w">мамандық</span> <span class="t">— профессия</span></div>
+          <div><span class="w">суретші</span> <span class="t">— художник</span></div>
+          <div><span class="w">тілші</span> <span class="t">— журналист, корреспондент</span></div>
+          <div><span class="w">жылқышы</span> <span class="t">— табунщик</span></div>
+          <div><span class="w">достық</span> <span class="t">— дружба</span></div>
+          <div><span class="w">жақсылық</span> <span class="t">— добро</span></div>
+          <div><span class="w">байлық</span> <span class="t">— богатство</span></div>
+          <div><span class="w">тұзды</span> <span class="t">— солёный</span></div>
+          <div><span class="w">тұзсыз</span> <span class="t">— несолёный</span></div>
+          <div><span class="w">қант</span> <span class="t">— сахар</span></div>
+          <div><span class="w">қантсыз</span> <span class="t">— без сахара</span></div>
+          <div><span class="w">сүтті</span> <span class="t">— с молоком</span></div>
+          <div><span class="w">жұмыссыз</span> <span class="t">— безработный</span></div>
+          <div><span class="w">әлсіз</span> <span class="t">— слабый</span></div>
+          <div><span class="w">айна</span> <span class="t">— зеркало</span></div>
+          <div><span class="w">таудай</span> <span class="t">— с гору, огромный</span></div>
+        </div>
+        <p class="why-note"><b>Почему так:</b> в наборе шестнадцать слов, но новых корней только два — <span class="kk">қант</span> и <span class="kk">айна</span>. Остальное собрано из того, что уже было: <span class="kk">сурет, тіл, жылқы, дос, жақсы, бай, маман, тұз, сүт, жұмыс, тау</span>. Прикрой перевод и попробуй угадать значение по корню и окончанию — почти везде получится.</p>
+      </div>
+    </div>
+
+    <div class="reading-block">
+      <div class="text-label">Текст · Атамның ауылы — кто чем занят в ауле</div>
+      <div class="mini-text">
+        <p class="storytext">Жазда атамның ауылына бардым. Ауыл кішкентай, бірақ онда әртүрлі мамандықтар бар.<br><br>Атам — жылқышы. Оның жылқылары көп. Ол күнде ерте тұрады, жылқыларды өзенге апарады. Атам жетпіс жаста, бірақ әлсіз емес: жас жігіттей күшті.<br><br>Көршіміз Ерлан — балықшы. Таңертең көлге барады, кешке үйге балықпен келеді. Таңертең көл айнадай таза.<br><br>Оның қызы Айгүл — суретші. Ол таулардың, көлдің, жылқылардың суретін салады. Менің ағам — тілші. Ол қалада тұрады, бірақ жазда ол да ауылға келеді.<br><br>Ауылда жұмыссыз адам жоқ. Балалар да жұмыс істейді: су әкеледі, жылқыларға қарайды.<br><br>Кешке бәріміз бірге отырамыз. Әжем сүтті шай құяды. Атам шайды қантсыз ішеді, мен қантпен ішемін. Атам үшін ең үлкен байлық — ақша емес, достық пен жақсылық.<br><br>Келесі жазда тағы барамын.</p>
+        <button class="btn btn-translate" type="button">Показать перевод</button>
+        <p class="ru-translation">Летом я ездил в аул к дедушке. Аул маленький, но профессий там много разных.<br><br>Дедушка — табунщик. Лошадей у него много. Он каждый день встаёт рано и гонит лошадей к реке. Дедушке семьдесят лет, но он не слабый: силён как молодой парень.<br><br>Наш сосед Ерлан — рыбак. Утром идёт на озеро, вечером возвращается домой с рыбой. Утром озеро чистое как зеркало.<br><br>Его дочь Айгуль — художница. Она рисует горы, озеро, лошадей. Мой старший брат — журналист. Он живёт в городе, но летом тоже приезжает в аул.<br><br>Безработных в ауле нет. Дети тоже работают: носят воду, присматривают за лошадьми.<br><br>Вечером мы все сидим вместе. Бабушка наливает чай с молоком. Дедушка пьёт чай без сахара, я — с сахаром. Для дедушки самое большое богатство — не деньги, а дружба и добро.<br><br>Следующим летом поеду снова.</p>
+        <p class="why-note"><b>Почему так:</b> в тексте четыре профессии, и все на <span class="kk">-шы/-ші</span>: <span class="kk">жылқышы, балықшы, суретші, тілші</span>. Корень у каждой знакомый — лошадь, рыба, картина, язык.<br><br>Два сравнения на <span class="kk">-дай</span> показывают обе буквы: <span class="kk">айна<b>дай</b></span> после гласного, <span class="kk">жігіт<b>тей</b></span> после глухого <span class="kk">т</span>.<br><br>В предпоследнем абзаце рядом стоят <span class="kk">қант<b>сыз</b></span> и <span class="kk">қант<b>пен</b></span> — «без» и «с». А в последней фразе три <span class="kk">-лық</span> с разной первой буквой: <span class="kk">бай<b>лық</b>, дос<b>тық</b>, жақсы<b>лық</b></span> — выбор по правилу көптік.</p>
+      </div>
+    </div>
+
+    <div class="reading-block">
+      <div class="text-label">Диалог · Асханада — заказ в столовой</div>
+      <div class="mini-text">
+        <div class="dialogue">
+          <p class="dline"><span class="speaker">Сатушы:</span> Сәлеметсіз бе! Не ішесіз?</p>
+          <p class="dline"><span class="speaker">Мейрам:</span> Шай, өтінемін. Сүтті шай бар ма?</p>
+          <p class="dline"><span class="speaker">Сатушы:</span> Бар. Қантпен бе, қантсыз ба?</p>
+          <p class="dline"><span class="speaker">Мейрам:</span> Қантсыз. Мен тәтті ішпеймін.</p>
+          <p class="dline"><span class="speaker">Сатушы:</span> Тамақ та аласыз ба? Бүгін сорпа өте дәмді.</p>
+          <p class="dline"><span class="speaker">Мейрам:</span> Сорпа тұзды ма? Маған тұзды тамақ жеуге болмайды.</p>
+          <p class="dline"><span class="speaker">Сатушы:</span> Онда тұзсыз сорпа беремін.</p>
+          <p class="dline"><span class="speaker">Мейрам:</span> Жақсы. Тұзсыз сорпа, нан және сүтті шай. Рахмет!</p>
+        </div>
+        <button class="btn btn-translate" type="button">Показать перевод</button>
+        <p class="ru-translation"><b>Продавец:</b> Здравствуйте! Что будете пить?<br><b>Мейрам:</b> Чай, пожалуйста. Чай с молоком есть?<br><b>Продавец:</b> Есть. С сахаром или без сахара?<br><b>Мейрам:</b> Без сахара. Я не пью сладкое.<br><b>Продавец:</b> Еду тоже возьмёте? Сегодня суп очень вкусный.<br><b>Мейрам:</b> Суп солёный? Мне нельзя солёное.<br><b>Продавец:</b> Тогда дам суп без соли.<br><b>Мейрам:</b> Хорошо. Суп без соли, хлеб и чай с молоком. Спасибо!</p>
+        <p class="why-note"><b>Почему так:</b> весь диалог держится на паре <span class="kk">-лы / -сыз</span>: <span class="kk">сүтті</span>, <span class="kk">тұзды / тұзсыз</span>, <span class="kk">қантсыз</span>. Рядом стоит <span class="kk">қантпен</span> — когда нужно «с чем-то» не как признак, а как добавка, работает көмектес.<br><br><span class="kk">Сатушы</span> — тот, кто продаёт: <span class="kk">сат-у-шы</span>, жұрнақ через <span class="kk">-у</span>.<br><br><span class="kk">Жеуге болмайды</span> — «нельзя есть», модальность из темы 2.9.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane pane-quiz" data-topic="word-formation">
+    <p class="quiz-instruction">Впиши жұрнақ. У <span class="kk">-шы</span> и <span class="kk">-сыз</span> выбор только по ряду, у <span class="kk">-лы</span> и <span class="kk">-лық</span> — как у көптік.</p>
+    <div class="qitem"><span class="qnum">1.</span> балық<input class="blank" data-answer="шы" style="width:4em;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> <span class="hint">(рыбак)</span></div>
+    <div class="qitem"><span class="qnum">2.</span> сурет<input class="blank" data-answer="ші" style="width:4em;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> <span class="hint">(художник)</span></div>
+    <div class="qitem"><span class="qnum">3.</span> дос<input class="blank" data-answer="тық" style="width:4em;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> <span class="hint">(дружба)</span></div>
+    <div class="qitem"><span class="qnum">4.</span> тұз<input class="blank" data-answer="сыз" style="width:4em;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> <span class="hint">(несолёный)</span></div>
+    <div class="qitem"><span class="qnum">5.</span> ақыл<input class="blank" data-answer="ды" style="width:4em;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> <span class="hint">(умный)</span></div>
+    <div class="qitem"><span class="qnum">6.</span> жігіт<input class="blank" data-answer="тей" style="width:4em;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> күшті <span class="hint">(силён как парень)</span></div>
+    <div class="qitem"><span class="qnum">7.</span> <span class="ru-hint">«Ученик» —</span>
+      <select class="mc" data-answer="оқушы">
+        <option value="">—</option>
+        <option value="оқшы">оқшы</option>
+        <option value="оқушы">оқушы</option>
+      </select>
+    </div>
+    <div class="qitem"><span class="qnum">8.</span> <span class="ru-hint">«Рыбакам» —</span>
+      <select class="mc" data-answer="балықшыларға">
+        <option value="">—</option>
+        <option value="балықшыларға">балықшыларға</option>
+        <option value="балықтарғашы">балықтарғашы</option>
+      </select>
+    </div>
+    <div class="qitem"><span class="qnum">9.</span> <span class="ru-hint">«Скажи-ка!» —</span>
+      <select class="mc" data-answer="Айтшы!">
+        <option value="">—</option>
+        <option value="Айтушы!">Айтушы!</option>
+        <option value="Айтшы!">Айтшы!</option>
+      </select>
+    </div>
+    <div class="qitem"><span class="qnum">10.</span> <span class="ru-hint">«Семья с детьми» —</span>
+      <select class="mc" data-answer="балалы отбасы">
+        <option value="">—</option>
+        <option value="балалық отбасы">балалық отбасы</option>
+        <option value="балалы отбасы">балалы отбасы</option>
+      </select>
+    </div>
+    <div class="qitem">
+      <span class="qnum">11.</span> <span class="ru-hint">Дедушка пьёт чай без сахара.</span>
+      <div class="qbuild" data-answer="Атам шайды қантсыз ішеді" data-words="қантсыз|Атам|ішеді|шайды"></div>
+    </div>
+    <div class="qitem">
+      <span class="qnum">12.</span> <span class="ru-hint">Безработных в ауле нет.</span>
+      <div class="qbuild" data-answer="Ауылда жұмыссыз адам жоқ" data-words="жоқ|жұмыссыз|Ауылда|адам"></div>
+    </div>
+    <div class="quiz-actions">
+      <button class="btn btn-check" type="button">Тексеру · Проверить</button>
+      <button class="btn btn-reveal" type="button">Показать ответы</button>
+      <span class="quiz-result" aria-live="polite"></span>
+    </div>
     <button type="button" class="next-card" data-open="vocab">
       <span class="next-marker"></span>
       <span class="next-text">
-        <span class="next-label">Блок «Кеңейту» в работе — следующая тема будет про словообразование</span>
+        <span class="next-label">Блок «Кеңейту» в работе — следующая тема будет про залоги</span>
         <span class="next-title">А пока закрепи слова в словаре</span>
       </span>
       <span class="next-arrow">→</span>
@@ -7704,7 +7936,7 @@
                         "future-tense","verb-negation","compound-verb","modality",
                         "participle","converb"];
   var KENEYU_TOPICS = ["conditional","optative","postpositions","adjectives","adverbs",
-                       "numerals","time-date"];
+                       "numerals","time-date","word-formation"];
   var TOPICS = NEGIZ_TOPICS.concat(SEPTIK_TOPICS).concat(ETISTIK_TOPICS).concat(KENEYU_TOPICS);
 
   var BLOCKS = {
@@ -7726,7 +7958,7 @@
     "future-tense":24, "verb-negation":22, "compound-verb":26, "modality":24,
     "participle":26, "converb":24,
     "conditional":24, "optative":22, "postpositions":26,
-    "adjectives":20, "adverbs":20, "numerals":22, "time-date":24
+    "adjectives":20, "adverbs":20, "numerals":22, "time-date":24, "word-formation":22
   };
 
   var STORAGE_KEY   = "kkProgressV1";
@@ -8356,6 +8588,10 @@
     "айлар":"месяцы","айлары":"месяцы (чего-то)","айдың":"месяца","айы":"месяц (чей-то)",
     "жауады":"идёт (о дожде)","демаламыз":"отдыхаем","нешеде":"во сколько",
     "күтпейсіз":"не будете ждать",
+    // 3.8 сөзжасам
+    "айнадай":"как зеркало","жігіттей":"как парень","ауылына":"в аул (к кому-то)",
+    "ішпеймін":"не пью","әкеледі":"приносит","рахмет":"спасибо",
+    "ерлан":"Ерлан (мужское имя)",
     // имена и клички из текстов — иначе не переводятся по тапу
     "айгүл":"Айгуль (женское имя)","данияр":"Данияр (мужское имя)",
     "ахмет":"Ахмет (имя)","қожа":"Ходжа (почётное звание)",
