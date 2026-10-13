@@ -10,3 +10,4 @@ wrangler.jsonc
 tools
 .playwright-mcp
 audio-sample
+.tts
