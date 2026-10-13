@@ -83,8 +83,9 @@ def word_text(w):
 
 def main():
     model = sys.argv[1]
-    female = int(sys.argv[2]) if len(sys.argv) > 2 else 4
-    male = int(sys.argv[3]) if len(sys.argv) > 3 else 0
+    # Выбраны на слух 2026-10-13: женский F3, мужской Iseke.
+    female = int(sys.argv[2]) if len(sys.argv) > 2 else 2
+    male = int(sys.argv[3]) if len(sys.argv) > 3 else 1
     os.makedirs(OUT, exist_ok=True)
     voice = PiperVoice.load(model)
     rows = []
