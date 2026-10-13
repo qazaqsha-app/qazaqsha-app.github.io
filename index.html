@@ -550,6 +550,20 @@
   }
   .install-tip b{color:var(--ink);}
   .install-btn{color:var(--negiz);}
+
+  /* Плашка для встроенного браузера Telegram/Instagram: светлый фон
+     фиксированный, поэтому и текст приколочен к тёмной краске. */
+  .inapp-tip{
+    background:#FFF4D6; color:var(--ink-fixed); border-radius:12px; padding:12px 14px;
+    margin:0 0 14px; font-size:0.85rem; line-height:1.45;
+  }
+  .inapp-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .inapp-actions button{
+    font-family:var(--font-ru); font-size:0.82rem; font-weight:600; padding:8px 14px;
+    border-radius:18px; cursor:pointer; border:1.5px solid #E2C77A;
+  }
+  .inapp-copy{background:var(--ink-fixed); color:#fff; border-color:var(--ink-fixed) !important;}
+  .inapp-close{background:transparent; color:var(--ink-fixed);}
   [hidden]{display:none !important;}
 
   /* Широкий экран: демо встаёт справа и едет вместе со страницей. Поля по
@@ -629,6 +643,13 @@
 <div class="screen active" id="home">
 <header class="hero" id="top">
 <div class="hero-main">
+  <div class="inapp-tip" id="inappTip" hidden>
+    <b>Курс открыт внутри Telegram.</b> Встроенный браузер может потерять ваш прогресс и не умеет ставить курс на экран как приложение. Откройте ссылку в обычном браузере: <span id="inappHow">меню ⋮ или ⋯ вверху → «Открыть в браузере»</span>.
+    <div class="inapp-actions">
+      <button type="button" class="inapp-copy" id="inappCopy">Скопировать ссылку</button>
+      <button type="button" class="inapp-close" id="inappClose">Понятно</button>
+    </div>
+  </div>
   <div class="eyebrow">Қазақ тілі · грамматика · офлайн</div>
   <h1>Казахская грамматика с&nbsp;нуля</h1>
   <p>Закон созвучия, база предложения, все падежи и глагол — в каждой теме правило, тексты для чтения и задания с проверкой.</p>
@@ -9045,6 +9066,40 @@
 
   /* ================= УСТАНОВКА ================= */
 
+  /* Ссылки из Telegram открываются во встроенном браузере. Там нет
+     установки на экран, а хранилище может очищаться — прогресс теряется.
+     На Android Telegram вписывает себя в userAgent и подкладывает
+     TelegramWebviewProxy; на iOS он открывает обычный Safari-просмотрщик,
+     который не отличить, — там плашки не будет. */
+  var INAPP_KEY = "kkInappSeenV1";
+
+  function initInappTip(){
+    var box = document.getElementById("inappTip");
+    if(!box) return;
+    var ua = navigator.userAgent || "";
+    var tg = /Telegram/i.test(ua) || "TelegramWebviewProxy" in window || "TelegramWebview" in window;
+    var other = /FBAN|FBAV|Instagram|Line\//i.test(ua);
+    if(!tg && !other) return;
+    try{ if(sessionStorage.getItem(INAPP_KEY)) return; }catch(e){}
+    if(!tg){
+      box.querySelector("b").textContent = "Курс открыт во встроенном браузере приложения.";
+    }
+    box.hidden = false;
+    document.getElementById("inappClose").addEventListener("click", function(){
+      box.hidden = true;
+      try{ sessionStorage.setItem(INAPP_KEY, "1"); }catch(e){}
+    });
+    document.getElementById("inappCopy").addEventListener("click", function(){
+      var btn = this, url = location.origin + location.pathname;
+      function done(){ btn.textContent = "Ссылка скопирована"; }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done, function(){ window.prompt("Скопируйте ссылку:", url); });
+      } else {
+        window.prompt("Скопируйте ссылку:", url);
+      }
+    });
+  }
+
   function initInstall(){
     var btn = document.getElementById("installBtn");
     var tip = document.getElementById("installTip");
@@ -9376,6 +9431,7 @@
     initHeroDemo();
     initKkKeys();
     initInstall();
+    initInappTip();
     renderTotalTime();
     renderVocabDueBadge();
     renderProgress();
