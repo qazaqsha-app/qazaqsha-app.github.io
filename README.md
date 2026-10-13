@@ -2,16 +2,16 @@
 
 Офлайн-курс казахской грамматики для самостоятельного изучения. Один HTML-файл, без сервера, без регистрации, без рекламы. Работает как PWA — можно установить на экран телефона и заниматься без интернета.
 
-> **Статус: 38 тем из 43.** Блоки «Негіз», «Септік» и «Етістік» закрыты целиком — от закона созвучия до причастия и деепричастия, — и идёт блок «Кеңейту»: условие, желание, послелоги, прилагательные, наречия, числительные, время и даты. Плюс словарь с интервальными повторениями и подборщик суффиксов. План ниже.
+> **Статус: 39 тем из 43.** Блоки «Негіз», «Септік» и «Етістік» закрыты целиком — от закона созвучия до причастия и деепричастия, — и идёт блок «Кеңейту»: условие, желание, послелоги, прилагательные, наречия, числительные, время и даты, словообразование. Плюс словарь с интервальными повторениями и подборщик суффиксов. План ниже.
 
 ## Что внутри
 
-- **38 тем** — закон созвучия, база предложения, принадлежность, вопрос, отрицание, все семь падежей, глагол целиком (пять времён, отрицание, составной глагол, модальность, есімше и көсемше) и семь тем расширения: шартты рай, қалау рай, шылаулар, сын есім, үстеу, сан есім, уақыт пен күнтізбе
+- **39 тем** — закон созвучия, база предложения, принадлежность, вопрос, отрицание, все семь падежей, глагол целиком (пять времён, отрицание, составной глагол, модальность, есімше и көсемше) и восемь тем расширения: шартты рай, қалау рай, шылаулар, сын есім, үстеу, сан есім, уақыт пен күнтізбе, сөзжасам
 - **Правило → тексты → задания** в каждой теме, как в [English-grammar](https://github.com/StanislavSidorovich/English-grammar), но с нуля под другой язык
 - **Подборщик суффиксов** — вводишь любое казахское слово, выбираешь тип окончания, и приложение показывает нужный вариант с пошаговым разбором: какой гласный командует, к какому классу относится последняя согласная. Закон созвучия (үндестік заңы) правилом в учебнике не ставится — его надо прогонять руками десятки раз
 - **Тексты только из уже изученных слов.** Каждая тема добавляет 12–18 новых слов, и в её текстах не встречается ничего, что не было введено раньше. Текст всегда читается целиком, а не через одно слово
 - **Сборка предложения** — отдельный тип задания под порядок слов SOV: он ломается у русскоязычных чаще всего, и вписыванием в пропуск не тренируется
-- **Словарь с интервальными повторениями** — 547 слов, коробки Лейтнера: угаданное уезжает на день, три дня, неделю, три недели; забытое возвращается сразу. Слова берутся прямо из тем, отдельного списка нет
+- **Словарь с интервальными повторениями** — 563 слова, коробки Лейтнера: угаданное уезжает на день, три дня, неделю, три недели; забытое возвращается сразу. Слова берутся прямо из тем, отдельного списка нет
 - Блок «Стоит повторить» подсвечивает темы по доле ошибок и давности
 - Тёмная тема, три размера шрифта, прогресс в localStorage — никакие данные никуда не отправляются
 
@@ -34,9 +34,9 @@
 
 **Блок 2 · Етістік:** 2.1 Етістік негізі · бұйрық рай · 2.2 Ауыспалы осы-келер шақ · 2.3 Нақ осы шақ · 2.4 Жедел өткен шақ · 2.5 Бұрынғы өткен шақ · 2.6 Келер шақ · 2.7 Болымсыз етістік · 2.8 Күрделі етістік · 2.9 Қажеттілік пен мүмкіндік · 2.10 Есімше · 2.11 Көсемше.
 
-**Блок 3 · Кеңейту:** 3.1 Шартты рай · 3.2 Қалау рай · 3.3 Шылаулар · 3.4 Сын есім · 3.5 Үстеу · 3.6 Сан есім · 3.7 Уақыт пен күнтізбе · далее сөзжасам, етіс, төл сөз, құрмалас сөйлем, ресми тіл.
+**Блок 3 · Кеңейту:** 3.1 Шартты рай · 3.2 Қалау рай · 3.3 Шылаулар · 3.4 Сын есім · 3.5 Үстеу · 3.6 Сан есім · 3.7 Уақыт пен күнтізбе · 3.8 Сөзжасам · далее етіс, төл сөз, құрмалас сөйлем, ресми тіл.
 
-Всего около 13,5 часа занятий и 547 слов.
+Всего около 13,7 часа занятий и 563 слова.
 
 ## Кому подходит
 
@@ -117,7 +117,7 @@ Unlike the author's [English grammar course](https://github.com/StanislavSidorov
 
 Kazakh is agglutinative, and nearly every suffix is selected by vowel and consonant harmony (*үндестік заңы*), so the app ships a **suffix picker**: type any Kazakh word, pick a suffix type, and it shows the correct variant with a step-by-step explanation — which vowel governs, and which class the final consonant belongs to. There is also a dedicated **sentence-building** exercise type for SOV word order, which fill-in-the-blank drills cannot train.
 
-Shipped: 38 topics — the Негіз block, all seven cases plus postpositional nouns, the complete verb block (five tenses, negation, compound verbs, modality, participles and converbs) and seven topics of the Кеңейту block — plus a 547-word spaced-repetition vocabulary trainer (Leitner boxes, words pulled straight from the lessons). Planned: 43 topics across four blocks (A1–B1 / ҚАЗТЕСТ Қарапайым–Орта). Topics are ordered by grammatical dependency rather than by CEFR level, since each text may only use vocabulary introduced earlier.
+Shipped: 39 topics — the Негіз block, all seven cases plus postpositional nouns, the complete verb block (five tenses, negation, compound verbs, modality, participles and converbs) and eight topics of the Кеңейту block — plus a 563-word spaced-repetition vocabulary trainer (Leitner boxes, words pulled straight from the lessons). Planned: 43 topics across four blocks (A1–B1 / ҚАЗТЕСТ Қарапайым–Орта). Topics are ordered by grammatical dependency rather than by CEFR level, since each text may only use vocabulary introduced earlier.
 
 **Fonts:** the Kazakh letters ә ғ қ ң ө ү һ live in the `cyrillic-ext` subset and ұ і in `cyrillic`. Golos Text covers all of them; Manrope does not, so Manrope is loaded with Latin only and falls back to Golos for any Cyrillic.
 
