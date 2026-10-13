@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Курс переехал · Қазақша</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://qazaqsha-app.github.io/">
+<meta property="og:title" content="Казахский с нуля · Қазақша">
+<meta property="og:url" content="https://qazaqsha-app.github.io/">
+<meta property="og:image" content="https://qazaqsha-app.github.io/assets/og-image.png">
+<style>
+  body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+       font-family:system-ui,sans-serif; background:#F2F5F7; color:#16202C; padding:16px; box-sizing:border-box;}
+  @media (prefers-color-scheme: dark){ body{background:#11161C; color:#ECEFF3;} a{color:#5AA6CE;} }
+  main{max-width:420px; text-align:center; line-height:1.6;}
+  a{color:#2A7299; font-weight:700;}
+</style>
+</head>
+<body>
+<main>
+  <h1 style="font-size:1.3rem">Курс переехал</h1>
+  <p>Новый адрес: <a id="go" href="https://qazaqsha-app.github.io/">qazaqsha-app.github.io</a>. Сейчас откроется сам, ваш прогресс переедет вместе с вами.</p>
+  <p style="font-size:0.85rem; opacity:0.75">Если курс стоял на экране телефона как приложение, удалите старую иконку и установите заново с нового адреса.</p>
+</main>
+<script>
+/* Заглушка старого адреса stanislavsidorovich.github.io/Kazakh-grammar/.
+   Прогресс в localStorage привязан к адресу, поэтому забираем ключи kk*
+   отсюда и передаём на новый адрес во фрагменте #import=… — после #
+   ничего не уходит на сервер. Новый адрес берёт только те ключи, которых
+   у него ещё нет. Старый service worker снимаем, иначе офлайн-кэш
+   продолжит показывать прежнюю версию курса вместо этой страницы. */
+(function(){
+  var target = "https://qazaqsha-app.github.io/";
+  var data = {}, n = 0;
+  try{
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if(/^kk/.test(k)){ data[k] = localStorage.getItem(k); n++; }
+    }
+  }catch(e){}
+  if(n){
+    var b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    target += "#import=" + encodeURIComponent(b64);
+  }
+  document.getElementById("go").href = target;
+
+  var jobs = [];
+  try{
+    if(navigator.serviceWorker && navigator.serviceWorker.getRegistrations){
+      jobs.push(navigator.serviceWorker.getRegistrations().then(function(rs){
+        return Promise.all(rs.map(function(r){ return r.unregister(); }));
+      }));
+    }
+    if(window.caches && caches.keys){
+      jobs.push(caches.keys().then(function(ks){
+        return Promise.all(ks.map(function(k){ return caches.delete(k); }));
+      }));
+    }
+  }catch(e){}
+  var done = false;
+  function go(){ if(done) return; done = true; location.replace(target); }
+  Promise.all(jobs).then(go, go);
+  setTimeout(go, 1500);
+})();
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   "description": "Курс казахской грамматики для начинающих: закон созвучия, падежи, глагол. Правило, тексты для чтения и задания с проверкой в каждой теме. Офлайн, без рекламы, без регистрации.",
   "start_url": "./index.html",
   "scope": "./",
-  "id": "/Kazakh-grammar/",
+  "id": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#F2F5F7",
