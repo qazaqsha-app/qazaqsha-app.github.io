@@ -9,8 +9,8 @@
 <meta property="og:title" content="Казахская грамматика с нуля · правила, тексты, задания">
 <meta property="og:description" content="Закон созвучия, падежи и глагол — в каждой теме правило, тексты для чтения и задания с проверкой. Работает офлайн.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://stanislavsidorovich.github.io/Kazakh-grammar/">
-<meta property="og:image" content="https://stanislavsidorovich.github.io/Kazakh-grammar/assets/og-image.png">
+<meta property="og:url" content="https://qazaqsha-app.github.io/">
+<meta property="og:image" content="https://qazaqsha-app.github.io/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Казахская грамматика с нуля: слово кітап в шести формах, суффикс подобран по закону созвучия">
@@ -478,6 +478,45 @@
   .storytext{font-family:var(--font-kk); font-size:1.04rem; line-height:1.75; margin:0;}
   .dialogue{margin:0;}
   .dline{font-family:var(--font-kk); font-size:1.02rem; margin:0 0 7px;}
+
+  /* ---------- ЗВУК ---------- */
+  /* Фон кнопки светлый в обеих темах, поэтому цвет значка прибит. */
+  .say{
+    display:inline-flex; align-items:center; justify-content:center; flex:none;
+    width:28px; height:28px; padding:0; margin:0 6px 0 0; vertical-align:middle;
+    border:0; border-radius:50%; cursor:pointer;
+    background:var(--negiz-tint); color:var(--negiz-deep);
+  }
+  .say svg{width:14px; height:14px; display:block;}
+  .say.playing{background:var(--negiz); color:#fff;}
+  .say.loading{opacity:0.6;}
+  .say.na{opacity:0.3; cursor:default;}
+  /* Кнопка в отступе слева: перенесённый перевод встаёт под словом, а не под ней. */
+  .wordset > div{position:relative; padding-left:30px; min-height:24px;}
+  .wordset .say{position:absolute; left:0; top:-1px; width:24px; height:24px; margin:0;}
+  .wordset .say svg{width:12px; height:12px;}
+  .dialogue .dline{position:relative; padding-left:34px;}
+  .dline > .say{position:absolute; left:0; top:-1px;}
+  .dline.playing, .storytext.playing{background:var(--negiz-tint); color:var(--ink-fixed); border-radius:6px;}
+  .dline.playing .speaker{color:#2A7299;}
+  .audio-bar{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 10px;}
+  .audio-play, .audio-slow{
+    display:inline-flex; align-items:center; gap:6px; min-height:34px; padding:6px 13px;
+    font-family:var(--font-ru); font-size:0.8rem; font-weight:700; cursor:pointer;
+    border-radius:18px; border:1.5px solid #DDE2E8; background:transparent; color:var(--ink);
+  }
+  .audio-play svg{width:13px; height:13px;}
+  .audio-play.playing{background:var(--negiz); border-color:var(--negiz); color:#fff;}
+  .audio-slow{color:var(--muted); font-weight:600;}
+  .audio-slow[aria-pressed="true"]{border-color:var(--negiz); color:var(--negiz-deep); background:var(--negiz-tint);}
+  body.dark .audio-play, body.dark .audio-slow{border-color:#323A46;}
+  body.dark .audio-slow[aria-pressed="true"]{border-color:var(--negiz);}
+  .phrase .ph-kk{display:flex; align-items:center;}
+  .bubble .say{width:24px; height:24px; margin:-3px 0 0 6px;}
+  .bubble.you .say{background:#fff;}
+  .bubble .say svg{width:12px; height:12px;}
+  .tap-popup .say{width:22px; height:22px; margin:0 0 0 8px;}
+  .tap-popup .say svg{width:11px; height:11px;}
   /* Имя говорящего — обычный текст, а не украшение, значит нужен контраст 4.5.
      Брендовый --negiz даёт на тёмной карточке всего 3.68, поэтому в тёмной
      теме берётся осветлённый вариант (6.07). Менять сам --negiz нельзя: он
@@ -725,6 +764,27 @@
 <body>
 
 <script>
+/* Переезд с stanislavsidorovich.github.io/Kazakh-grammar/. Прогресс в
+   localStorage привязан к адресу, поэтому заглушка на старом адресе
+   собирает ключи kk* и передаёт их сюда во фрагменте #import=… (после #
+   ничего не уходит на сервер). Здесь берём только те ключи, которых ещё
+   нет: если человек уже занимался на новом адресе, его прогресс главнее.
+   Стоит до всех остальных скриптов, чтобы тема и прогресс уже были на месте. */
+(function(){
+  var m = location.hash.match(/^#import=([^&]+)/);
+  if(!m) return;
+  try{
+    var json = decodeURIComponent(escape(atob(decodeURIComponent(m[1]))));
+    var data = JSON.parse(json);
+    Object.keys(data).forEach(function(k){
+      if(/^kk/.test(k) && typeof data[k] === "string" && localStorage.getItem(k) === null){
+        localStorage.setItem(k, data[k]);
+      }
+    });
+  }catch(e){}
+  try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
+})();
+
 /* Тема и размер шрифта восстанавливаются до первой отрисовки — иначе на
    старте мигает светлый фон поверх тёмной темы. */
 (function(){
@@ -1157,7 +1217,7 @@
 
   <footer class="site-foot">
     <div>Автор — <a href="https://www.linkedin.com/in/stanislavsidorovich/" target="_blank" rel="noopener">Stanislav Sidorovich</a> · LinkedIn</div>
-    <div><a href="https://github.com/StanislavSidorovich/Kazakh-grammar" target="_blank" rel="noopener">Исходники на GitHub</a><span class="sep">·</span><a href="https://github.com/StanislavSidorovich/Kazakh-grammar/issues" target="_blank" rel="noopener">Нашли ошибку?</a></div>
+    <div><a href="https://github.com/qazaqsha-app/qazaqsha-app.github.io" target="_blank" rel="noopener">Исходники на GitHub</a><span class="sep">·</span><a href="https://github.com/qazaqsha-app/qazaqsha-app.github.io/issues" target="_blank" rel="noopener">Нашли ошибку?</a></div>
   </footer>
 </main>
 </div>
@@ -1187,7 +1247,8 @@
       <li>Открывай подборщик суффиксов каждый раз, когда сомневаешься. Цель — довести выбор до автоматизма, а не выучить таблицу наизусть</li>
     </ul>
     <div class="tip">Курс растёт по одной теме за раз. Блоки «Негіз», «Септік» и «Етістік» открыты целиком, блок «Кеңейту» идёт: условие, желание, послелоги, прилагательные, наречия, числительные, время и даты уже есть, дальше будут словообразование, залоги и сложное предложение. Оставшиеся темы видны на главной серым — так понятно, куда курс идёт.</div>
-    <p><b>Нашли ошибку?</b> Формы сверены по справочникам, но в живом употреблении неточности возможны. Если заметили неверную форму, странный перевод или неестественную фразу, напишите в <a href="https://github.com/StanislavSidorovich/Kazakh-grammar/issues" target="_blank" rel="noopener" class="ext-link">GitHub Issues</a> или автору в <a href="https://www.linkedin.com/in/stanislavsidorovich/" target="_blank" rel="noopener" class="ext-link">LinkedIn</a>. Исходный код открыт.</p>
+    <p><b>Про звук.</b> Слова, диалоги, тексты и фразы озвучены синтезатором речи, а не живым диктором: ударение и интонация в целом верные, но конец короткого слова иногда звучит смазанно. Кнопка «Медленнее» замедляет звук без искажения голоса. Озвучка сделана движком <a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener" class="ext-link">Piper</a> на модели, обученной на корпусе KazakhTTS/KazakhTTS2 — <a href="https://issai.nu.edu.kz/" target="_blank" rel="noopener" class="ext-link">ISSAI, Назарбаев Университет</a>, лицензия <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" class="ext-link">CC BY 4.0</a>.</p>
+    <p><b>Нашли ошибку?</b> Формы сверены по справочникам, но в живом употреблении неточности возможны. Если заметили неверную форму, странный перевод или неестественную фразу, напишите в <a href="https://github.com/qazaqsha-app/qazaqsha-app.github.io/issues" target="_blank" rel="noopener" class="ext-link">GitHub Issues</a> или автору в <a href="https://www.linkedin.com/in/stanislavsidorovich/" target="_blank" rel="noopener" class="ext-link">LinkedIn</a>. Исходный код открыт.</p>
     <p style="font-size:0.82rem; color:var(--muted); margin-top:20px;">Сделано <a href="https://www.linkedin.com/in/stanislavsidorovich/" target="_blank" rel="noopener" class="ext-link">Stanislav Sidorovich</a> · Алматы · <span style="font-family:var(--font-lat)">2026</span></p>
   </div>
 </div>
@@ -8288,6 +8349,7 @@
   <div class="pane pane-texts">
     <p class="scene-intro">Собеседник говорит первым, ты выбираешь ответ. Разговор идёт дальше только с верного хода, а на неверном видно, почему он не подходит. Все фразы — со вкладки «Тіркестер».</p>
     <label class="scene-hints"><input type="checkbox" id="sceneHints"> Показывать перевод</label>
+    <label class="scene-hints"><input type="checkbox" id="sceneVoice" checked> Озвучивать собеседника</label>
     <div class="scene-list" id="sceneList"></div>
     <div class="scene-stage" id="sceneStage"></div>
   </div>
@@ -8848,7 +8910,7 @@
 
   function bubbleHtml(cls, who, kk, ru){
     return '<div class="bubble '+cls+'"><span class="b-who">'+esc(who)+'</span>' +
-      '<div class="b-kk">'+esc(kk)+'</div><div class="b-ru">'+esc(ru)+'</div></div>';
+      '<div class="b-kk">'+esc(kk)+(cls.indexOf("ru-line") < 0 ? sayBtn(kk) : "")+'</div><div class="b-ru">'+esc(ru)+'</div></div>';
   }
 
   function startScene(id){
@@ -8870,10 +8932,17 @@
     var chat = stage.querySelector(".chat"), opts = stage.querySelector(".scene-opts");
     stage.querySelector(".scene-why").textContent = "";
     opts.innerHTML = "";
+    var said = [];
     while(p.i < p.scene.steps.length && !p.scene.steps[p.i].opts){
       var st = p.scene.steps[p.i++];
       chat.insertAdjacentHTML("beforeend", bubbleHtml("them" + (st.ruLine ? " ru-line" : ""), st.who, st.kk, st.ru));
+      if(!st.ruLine) said.push(chat.lastElementChild.querySelector(".say"));
     }
+    // Собеседник говорит вслух: сцена учит понимать на слух, а не читать.
+    var voice = document.getElementById("sceneVoice");
+    if(said.length && (!voice || voice.checked)) playQueue(said.map(function(b){ return b.dataset.say; }), function(k, state){
+      said.forEach(function(b, j){ b.classList.toggle("playing", j === k && !state); });
+    });
     if(p.i >= p.scene.steps.length){ finishScene(); return; }
     // Порядок вариантов перемешан, иначе верный быстро запоминается по месту.
     var choices = p.scene.steps[p.i].opts.slice().sort(function(){ return Math.random() - 0.5; });
@@ -8917,6 +8986,161 @@
     });
     renderSceneList();
   }
+
+  /* ================= ЗВУК ================= */
+
+  // Казахского голоса в браузерах почти нет, поэтому озвучка заранее
+  // сгенерирована файлами (tools/audio/build_audio.py, Piper, модель ISSAI).
+  // Имя файла — хеш текста строки, тот же, что считает скрипт. Манифеста
+  // нет: поменял строку в теме — после прогона скрипта у неё новый файл.
+  var AUDIO_DIR = "audio/";
+  var AUDIO_SLOW_KEY = "kkAudioSlowV1";
+  var SAY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M2 6h2.5L8 3v10L4.5 10H2z"/><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.3 6.3 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+  var PLAY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9-5.5z"/></svg>';
+  var STOP_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect fill="currentColor" x="3.5" y="3.5" width="9" height="9" rx="1.5"/></svg>';
+
+  // Должно совпадать с norm() в build_audio.py.
+  function normAudio(s){ return String(s).replace(/\s+/g, " ").trim(); }
+
+  // Два 32-битных FNV-1a по кодам UTF-16 — как audio_key() в build_audio.py.
+  function audioKey(s){
+    var h1 = 0x811c9dc5, h2 = 0x050c5d1f, i;
+    for(i = 0; i < s.length; i++) h1 = Math.imul(h1 ^ s.charCodeAt(i), 0x01000193) >>> 0;
+    for(i = s.length - 1; i >= 0; i--) h2 = Math.imul(h2 ^ s.charCodeAt(i), 0x01000193) >>> 0;
+    return ("0000000" + h1.toString(16)).slice(-8) + ("0000000" + h2.toString(16)).slice(-8);
+  }
+
+  function audioSlow(){ try{ return localStorage.getItem(AUDIO_SLOW_KEY) === "1"; }catch(e){ return false; } }
+
+  // Файл берём fetch'ем целиком, а не через src: <audio> просит кусками
+  // (Range, ответ 206), такой ответ service worker не кладёт в кеш, и офлайн
+  // звук бы пропадал. Прослушанное остаётся в кеше само.
+  var audioEl = null, audioBlobs = {}, audioRun = 0, audioOnStop = null;
+  function loadAudio(text){
+    var url = AUDIO_DIR + audioKey(normAudio(text)) + ".mp3";
+    if(!audioBlobs[url]) audioBlobs[url] = fetch(url).then(function(r){
+      if(!r.ok) throw new Error(r.status);
+      return r.blob();
+    }).then(function(b){ return URL.createObjectURL(b); })
+      .catch(function(e){ delete audioBlobs[url]; throw e; });
+    return audioBlobs[url];
+  }
+
+  function stopAudio(){
+    audioRun++;
+    if(audioEl) audioEl.pause();
+    if(audioOnStop){ var f = audioOnStop; audioOnStop = null; f(); }
+  }
+
+  // Играет строки по очереди. onStep(i) — перед каждой, onDone — в конце
+  // или при остановке (новым запуском, кнопкой стоп, уходом с экрана).
+  function playQueue(texts, onStep, onDone){
+    stopAudio();
+    var run = audioRun, i = 0;
+    if(!audioEl){ audioEl = new Audio(); audioEl.preload = "auto"; }
+    audioOnStop = function(){ if(onStep) onStep(-1); if(onDone) onDone(); };
+    function next(){
+      if(run !== audioRun) return;
+      if(i >= texts.length){ var f = audioOnStop; audioOnStop = null; if(f) f(); return; }
+      var k = i++;
+      if(onStep) onStep(k, "loading");
+      loadAudio(texts[k]).then(function(src){
+        if(run !== audioRun) return;
+        if(onStep) onStep(k);
+        audioEl.src = src;
+        audioEl.playbackRate = audioSlow() ? 0.75 : 1;
+        audioEl.preservesPitch = true;
+        audioEl.onended = function(){ setTimeout(next, texts.length > 1 ? 350 : 0); };
+        return audioEl.play();
+      }).catch(function(){
+        if(run !== audioRun) return;
+        if(onStep) onStep(k, "na");
+        next();
+      });
+    }
+    next();
+  }
+
+  function sayBtn(text, label){
+    return '<button type="button" class="say" data-say="'+esc(normAudio(text))+'" aria-label="'+esc(label || "Слушать")+'">'+SAY_ICON+'</button>';
+  }
+
+  function playSay(btn){
+    if(btn.classList.contains("playing")){ stopAudio(); return; }
+    playQueue([btn.dataset.say], function(k, state){
+      btn.classList.toggle("loading", state === "loading");
+      btn.classList.toggle("playing", k === 0 && !state);
+      if(state === "na") btn.classList.add("na");
+    });
+  }
+
+  // Строки текста или диалога с подсветкой той, что звучит сейчас.
+  function playLines(btn, lines, texts){
+    if(btn.classList.contains("playing")){ stopAudio(); return; }
+    var label = btn.querySelector("span");
+    var idle = label.textContent;
+    playQueue(texts, function(k){
+      lines.forEach(function(l, j){ l.classList.toggle("playing", j === k); });
+    }, function(){
+      btn.classList.remove("playing");
+      btn.firstChild.outerHTML = PLAY_ICON;
+      label.textContent = idle;
+    });
+    btn.classList.add("playing");
+    btn.firstChild.outerHTML = STOP_ICON;
+    label.textContent = "Стоп";
+  }
+
+  function slowBtnHtml(){
+    return '<button type="button" class="audio-slow" aria-pressed="'+audioSlow()+'">Медленнее</button>';
+  }
+
+  // Кнопки ставятся лениво, вместе с тап-переводом, при первом открытии экрана.
+  function initAudio(screen){
+    screen.querySelectorAll(".wordset > div").forEach(function(row){
+      var w = row.querySelector(".w");
+      if(w) row.insertAdjacentHTML("afterbegin", sayBtn(w.textContent));
+    });
+    screen.querySelectorAll(".dialogue").forEach(function(d){
+      var lines = [].slice.call(d.querySelectorAll(".dline"));
+      d.insertAdjacentHTML("beforebegin", '<div class="audio-bar"><button type="button" class="audio-play" data-play="dialogue">'+PLAY_ICON+'<span>Слушать диалог</span></button>'+slowBtnHtml()+'</div>');
+      lines.forEach(function(p){
+        var sp = p.querySelector(".speaker");
+        var text = p.textContent.slice(sp ? sp.textContent.length : 0);
+        p.insertAdjacentHTML("afterbegin", sayBtn(text));
+      });
+    });
+    screen.querySelectorAll(".storytext").forEach(function(p){
+      p.insertAdjacentHTML("beforebegin", '<div class="audio-bar"><button type="button" class="audio-play" data-play="story" data-say="'+esc(normAudio(p.textContent))+'">'+PLAY_ICON+'<span>Слушать текст</span></button>'+slowBtnHtml()+'</div>');
+    });
+    screen.querySelectorAll(".ph-kk").forEach(function(p){
+      p.insertAdjacentHTML("afterbegin", sayBtn(p.textContent));
+    });
+  }
+
+  // Ловим в фазе захвата: кнопка звука лежит внутри всплывашки перевода,
+  // строк с тап-словами и пузырей сцен, и их обработчики не должны сработать.
+  document.addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest(".say, .audio-play, .audio-slow");
+    if(!b) return;
+    e.stopPropagation();
+    if(b.classList.contains("say")){ if(!b.classList.contains("na")) playSay(b); return; }
+    if(b.classList.contains("audio-slow")){
+      var on = !audioSlow();
+      try{ localStorage.setItem(AUDIO_SLOW_KEY, on ? "1" : "0"); }catch(err){}
+      document.querySelectorAll(".audio-slow").forEach(function(x){ x.setAttribute("aria-pressed", on); });
+      if(audioEl) audioEl.playbackRate = on ? 0.75 : 1;
+      return;
+    }
+    var box = b.closest(".mini-text") || b.parentNode.parentNode;
+    if(b.dataset.play === "story"){
+      var p = b.parentNode.nextElementSibling;
+      playLines(b, [p], [b.dataset.say]);
+    } else {
+      var lines = [].slice.call(box.querySelectorAll(".dline"));
+      playLines(b, lines, lines.map(function(l){ return l.querySelector(".say").dataset.say; }));
+    }
+  }, true);
 
   /* ================= СЛОВАРЬ И ТАП-ПЕРЕВОД ================= */
 
@@ -9282,11 +9506,14 @@
   // когда слово попадало в набор, но не в VOCAB, оно переставало переводиться
   // в тексте. Поэтому наборы теперь досыпаются в словарь сами: единственный
   // источник правды — сама тема.
+  // Слова наборов, у которых есть свой звук: форма → текст, как в наборе.
+  var AUDIO_WORDS = {};
   function seedVocabFromWordsets(){
     document.querySelectorAll(".wordset > div").forEach(function(row){
       var w = row.querySelector(".w"), t = row.querySelector(".t");
       if(!w || !t) return;
       var key = w.textContent.trim().toLowerCase();
+      if(key) AUDIO_WORDS[key] = w.textContent;
       if(!key || VOCAB[key]) return;
       VOCAB[key] = t.textContent.replace(/^\s*[—-]\s*/,"").trim();
     });
@@ -9336,6 +9563,8 @@
     var b = document.createElement("div");
     b.className = "tap-popup";
     b.textContent = w.dataset.tr;
+    var form = w.textContent.trim().toLowerCase();
+    if(AUDIO_WORDS[form]) b.insertAdjacentHTML("beforeend", sayBtn(AUDIO_WORDS[form]));
     document.body.appendChild(b);
     var r = w.getBoundingClientRect();
     var top = r.top - b.offsetHeight - 9;
@@ -10007,6 +10236,7 @@
   }
 
   function showHome(scrollToId){
+    stopAudio();
     document.querySelectorAll(".topic-screen").forEach(function(s){ s.classList.remove("active"); });
     document.getElementById("home").classList.add("active");
     document.body.classList.remove("topic-open");
@@ -10027,6 +10257,7 @@
   }
 
   function openTopic(id){
+    stopAudio();
     var el = document.getElementById("screen-" + id);
     if(!el) return false;
     rememberHomeScroll();
@@ -10055,6 +10286,7 @@
     if(!el.dataset.prepared){
       el.querySelectorAll(".storytext, .dialogue, .wordset .w").forEach(wrapTapWords);
       el.querySelectorAll(".qbuild").forEach(initBuild);
+      initAudio(el);
       el.dataset.prepared = "1";
     }
   }
