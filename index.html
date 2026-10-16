@@ -777,21 +777,60 @@
   .inapp-close{background:transparent; color:var(--ink-fixed);}
   [hidden]{display:none !important;}
 
-  /* Широкий экран: демо встаёт справа и едет вместе со страницей. Поля по
-     бокам заполняет сам продукт, а не украшение. Хедер раскрывается через
-     display:contents, чтобы его части стали ячейками одной сетки со списком. */
+  /* Широкий экран. Шапка в две колонки: текст и прогресс слева, живое демо
+     справа. Демо больше не прилипает: оно нужно в первом экране, а дальше
+     уезжает вместе со шапкой. Хедер раскрывается через display:contents,
+     чтобы его части стали ячейками одной сетки.
+     Ниже — Сөйлесу полосой во всю ширину, а блоки курса лесенкой в две
+     колонки. Лесенка сделана флоатами, а не сеткой: у сетки строки общие,
+     и длинный блок раздувает соседний ряд пустотой. Флоат с clear встаёт
+     сразу под предыдущим в своей колонке и не выше соседнего флоата, —
+     это и есть лесенка, а порядок в DOM (и Tab) остаётся 0, 1, 2, 3.
+     Каждый раздел — панель на точечном фоне: точки видны только в полях
+     и зазорах, под текстом фон ровный. */
   @media (min-width:1000px){
-    .settings-bar, .blockbar{max-width:1052px;}
+    body{--dot:#D2D9E1; --panel-line:#E1E6EC;}
+    body.dark{--dot:#262D38; --panel-line:#232A34;}
+    body:not(.topic-open){
+      background-image:radial-gradient(var(--dot) 1.1px, transparent 1.3px);
+      background-size:22px 22px;
+    }
+    .settings-bar, .blockbar{max-width:1152px;}
     #home.active{
-      display:grid; grid-template-columns:minmax(0,640px) 380px; column-gap:32px;
-      justify-content:center; align-items:start; padding:0 0 0;
+      display:grid; grid-template-columns:minmax(0,1fr) 400px; column-gap:48px;
+      max-width:1152px; margin:0 auto; padding:0 16px; align-items:start;
     }
     #home .hero{display:contents;}
-    .hero-main{grid-column:1; grid-row:1; padding:18px 16px 0;}
-    .hero-rest{grid-column:1; grid-row:2; padding:0 16px 6px;}
-    #home main{grid-column:1; grid-row:3; max-width:none; margin:0; width:100%;}
-    .hero-demo{grid-column:2; grid-row:1 / span 3; position:sticky; top:16px; margin:18px 16px 0 0;}
+    .hero-main{grid-column:1; grid-row:1; padding:18px 0 0;}
+    .hero-main > p{max-width:62ch;}
+    .hero h1{font-size:2.3rem;}
+    .hero-rest{grid-column:1; grid-row:2; padding:0 0 6px;}
+    .hero-demo{grid-column:2; grid-row:1 / span 2; margin:30px 0 0;}
     .demo-card{box-shadow:0 10px 30px rgba(18,50,74,0.08);}
+    body.dark .demo-card{box-shadow:0 10px 30px rgba(0,0,0,0.35);}
+    #home main{grid-column:1 / -1; grid-row:3; max-width:none; margin:0; width:100%; padding:20px 0 60px;}
+
+    .home-sec{
+      background:var(--bg); border:1px solid var(--panel-line); border-radius:20px;
+      padding:2px 22px 22px; box-shadow:inset 0 3px 0 var(--sec-c, transparent);
+    }
+    .home-sec .level-divider{margin:18px 0 14px;}
+    .sec-soilesu{--sec-c:var(--soilesu);}
+    .sec-negiz{--sec-c:var(--negiz);}
+    .sec-septik{--sec-c:var(--septik);}
+    .sec-etistik{--sec-c:var(--etistik);}
+    .sec-keneyu{--sec-c:var(--keneyu);}
+
+    /* Сөйлесу: заголовок слева, две строки справа. */
+    .sec-soilesu .topic-group{display:grid; grid-template-columns:1fr 1fr; column-gap:32px; align-items:center;}
+    .sec-soilesu .era-header{margin:0;}
+    .sec-soilesu .topic-list{margin-top:0;}
+
+    .home-grid{display:flow-root; margin-top:28px;}
+    .home-grid .home-sec{width:calc(50% - 14px); margin-bottom:28px;}
+    .sec-quraldar, .sec-septik, .sec-keneyu{float:right; clear:right;}
+    .sec-negiz, .sec-etistik{float:left; clear:left;}
+    .reset-row{margin-top:6px;}
   }
 
   /* ---------- СТРОКА КАЗАХСКИХ БУКВ ----------
@@ -934,6 +973,7 @@
 </header>
 
 <main>
+  <section class="home-sec sec-soilesu">
   <div class="level-divider"><span>Сөйлесу — говорить сегодня</span></div>
   <div class="topic-group" id="soilesu">
     <div class="era-header">
@@ -955,6 +995,11 @@
     </div>
   </div>
 
+  </section>
+
+  <!-- Широкий экран: блоки лесенкой в две колонки (см. .home-grid в CSS). -->
+  <div class="home-grid">
+  <section class="home-sec sec-quraldar">
   <div class="level-divider"><span>Құралдар — словарь и инструменты</span></div>
   <div class="topic-group" id="quraldar">
     <div class="topic-list">
@@ -977,6 +1022,9 @@
     </div>
   </div>
 
+  </section>
+
+  <section class="home-sec sec-block sec-negiz">
   <div class="level-divider"><span>Блок 0 · Негіз — основа</span></div>
   <div class="topic-group" id="negiz">
     <div class="era-header">
@@ -1061,6 +1109,9 @@
     </div>
   </div>
 
+  </section>
+
+  <section class="home-sec sec-block sec-septik">
   <div class="level-divider"><span>Блок 1 · Септіктер — падежи</span></div>
   <div class="topic-group" id="septik">
     <div class="era-header">
@@ -1120,6 +1171,9 @@
     </div>
   </div>
 
+  </section>
+
+  <section class="home-sec sec-block sec-etistik">
   <div class="level-divider"><span>Блок 2 · Етістік — глагол</span></div>
   <div class="topic-group" id="etistik">
     <div class="era-header">
@@ -1197,6 +1251,9 @@
     </div>
   </div>
 
+  </section>
+
+  <section class="home-sec sec-block sec-keneyu">
   <div class="level-divider"><span>Блок 3 · Кеңейту — расширение</span></div>
   <div class="topic-group" id="keneyu">
     <div class="era-header">
@@ -1274,6 +1331,9 @@
         <span class="row-soon">скоро</span>
       </button>
     </div>
+  </div>
+
+  </section>
   </div>
 
   <div class="reset-row"><button id="resetBtn" type="button">Сбросить прогресс</button></div>
