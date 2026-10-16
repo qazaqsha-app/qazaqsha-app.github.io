@@ -7,7 +7,7 @@
     .tts/venv/Scripts/python tools/audio/build_audio.py --review кітап дос ел
 
 Что озвучивается — всё казахское, что берётся из index.html: слова наборов
-«Слова N», реплики диалогов, тексты, фразы «Сөйлесу», ходы сцен. Имя файла —
+«Слова N», примеры «Әліппе», реплики диалогов, тексты, фразы «Сөйлесу», ходы сцен. Имя файла —
 хеш текста (audioKey в index.html считает тот же), поэтому манифест не нужен:
 поменял строку в теме — у неё новый файл, старый удалится при следующем
 прогоне.
@@ -95,6 +95,10 @@ def collect(src):
             # Одиночное слово без точки Piper комкает: точка даёт законченную
             # интонацию.
             add(w, w + ".", FEMALE, "word")
+    # Слова-примеры экрана «Әліппе»: не наборы, в Сөздік не идут.
+    for w in re.findall(r'<span class="abc-kk">(.*?)</span>', src):
+        w = strip_tags(w)
+        add(w, w + ".", FEMALE, "word")
     for who, line in re.findall(r'<p class="dline"><span class="speaker">([^<:]*):</span>(.*?)</p>', src, re.S):
         add(strip_tags(line), strip_tags(line), SPEAKER.get(who, MALE), "line")
     for p in re.findall(r'<p class="storytext">(.*?)</p>', src, re.S):

@@ -482,6 +482,82 @@
   .dialogue{margin:0;}
   .dline{font-family:var(--font-kk); font-size:1.02rem; margin:0 0 7px;}
 
+  /* ---------- ӘЛІППЕ ---------- */
+  .abc-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin:4px 0 8px;}
+  .abc-grid span{
+    font-family:var(--font-kk); font-weight:700; font-size:1.15rem; text-align:center;
+    padding:6px 0; border-radius:8px; background:var(--card);
+  }
+  .abc-grid .own{background:var(--soilesu-tint); color:var(--soilesu-deep);}
+  .abc-grid .loan{color:var(--muted); font-weight:500; background:transparent; box-shadow:inset 0 0 0 1px #DFE4EA;}
+  body.dark .abc-grid .loan{box-shadow:inset 0 0 0 1px #323A46;}
+  .abc-legend{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:0.78rem; color:var(--muted); margin:0 0 18px;}
+  .abc-legend i{display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px;}
+  .abc-legend i.own{background:var(--soilesu-tint); box-shadow:inset 0 0 0 1px var(--soilesu);}
+  .abc-legend i.loan{box-shadow:inset 0 0 0 1px #B9C2CC;}
+  .abc-h{font-size:1.02rem; margin:24px 0 6px;}
+  .abc-cards{display:grid; gap:8px; margin:10px 0 14px;}
+  @media (min-width:560px){ .abc-cards{grid-template-columns:1fr 1fr;} }
+  .abc-card{display:flex; gap:12px; align-items:flex-start; background:var(--card); border-radius:12px; padding:10px 12px;}
+  .abc-card.zh-hard{box-shadow:inset 4px 0 0 var(--zhuan);}
+  .abc-card.zh-soft{box-shadow:inset 4px 0 0 var(--zhinishke);}
+  .abc-big{font-family:var(--font-kk); font-weight:700; font-size:1.7rem; line-height:1.1; min-width:52px; color:var(--soilesu);}
+  body.dark .abc-big{color:#A99BEA;}
+  .abc-sound{font-size:0.86rem; line-height:1.45;}
+  .abc-ex{margin-top:5px; font-size:0.9rem;}
+  .abc-kk{font-family:var(--font-kk); font-weight:700;}
+  .abc-ex .say, .abc-rule .say, .abc-try .say{width:24px; height:24px; margin:0 5px 0 0;}
+  .abc-ex .say svg, .abc-rule .say svg, .abc-try .say svg{width:12px; height:12px;}
+  .abc-pairs{display:block; width:100%; max-width:360px; margin:6px auto 14px;}
+  .abc-pairs text{font-family:var(--font-kk);}
+  .abc-pairs .ap-head{font-size:11px; font-weight:800; letter-spacing:0.03em;}
+  .abc-pairs .ap-head.zh{fill:var(--zhuan);}
+  .abc-pairs .ap-head.zi{fill:var(--zhinishke);}
+  body.dark .abc-pairs .ap-head.zi{fill:#7FA3EC;}
+  .abc-pairs .ap-row text{font-size:16px; font-weight:700; fill:var(--ink-fixed); text-anchor:middle;}
+  .abc-pairs .ap-h{fill:var(--zhuan-tint); stroke:var(--zhuan); stroke-width:1;}
+  .abc-pairs .ap-s{fill:var(--zhinishke-tint); stroke:var(--zhinishke); stroke-width:1;}
+  .abc-pairs path{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:3 4; opacity:0.6; fill:none;}
+  .abc-pairs .ap-note{font-size:11px; fill:var(--muted); font-family:var(--font-ru);}
+  .abc-rules{display:grid; gap:6px;}
+  .abc-rule{display:grid; grid-template-columns:76px 1fr; gap:10px; background:var(--card); border-radius:10px; padding:9px 12px; font-size:0.88rem;}
+  .abc-rule > b{font-size:1.05rem; color:var(--soilesu);}
+  body.dark .abc-rule > b{color:#A99BEA;}
+  .abc-try{display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:8px 0 18px;}
+  .abc-try details{background:var(--card); border-radius:10px; padding:8px 12px;}
+  .abc-try summary{cursor:pointer; font-size:1.1rem; list-style:none;}
+  .abc-try summary::-webkit-details-marker{display:none;}
+  .abc-try summary::after{content:" ›"; color:var(--muted);}
+  .abc-try details[open]{grid-column:1 / -1;}
+  .abc-try details[open] summary::after{content:"";}
+  .abc-try details > div{font-size:0.86rem; margin-top:4px;}
+  .abc-next{margin-top:18px;}
+  .inline-link{background:none; border:none; padding:0; font:inherit; color:var(--soilesu); font-weight:700; text-decoration:underline; cursor:pointer;}
+  body.dark .inline-link{color:#A99BEA;}
+  .continue-block .start-alt, .abc-next .start-alt{display:block;}
+  /* ---------- КАРТА КУРСА ---------- */
+  .course-map{background:var(--card); border-radius:var(--radius); padding:4px 0 2px; overflow:hidden;}
+  .course-map svg{display:block;}
+  .cm-label{font-family:var(--font-ru); font-size:12px; font-weight:800;}
+  body.dark .cm-label{fill:var(--ink) !important;}
+  .cm-count{font-weight:600; fill:var(--muted);}
+  .cm-line{stroke-width:6; stroke-linecap:round; opacity:0.32;}
+  .cm-turn{fill:none; stroke:var(--muted); stroke-width:2; stroke-dasharray:2 5; stroke-linecap:round; opacity:0.5;}
+  .cm-st text{font-family:var(--font-lat); font-size:10px; font-weight:700; fill:var(--muted); text-anchor:middle;}
+  .cm-st[data-open]{cursor:pointer;}
+  .cm-hit{fill:transparent;}
+  .cm-dot{fill:var(--card); stroke:var(--c); stroke-width:2.5;}
+  .cm-st.done .cm-dot{fill:var(--c);}
+  .cm-st.soon circle{fill:var(--card); stroke:var(--muted); stroke-width:1.5; stroke-dasharray:2 2.5; opacity:0.7;}
+  .cm-here{fill:none; stroke:var(--c); stroke-width:2; opacity:0.35;}
+  .cm-st[data-open]:hover .cm-dot{stroke-width:3.5;}
+  .cm-legend{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:0.75rem; color:var(--muted); margin:8px 2px 0;}
+  .cm-legend i{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:-1px;}
+  .cm-legend .cm-done{background:var(--negiz);}
+  .cm-legend .cm-open{box-shadow:inset 0 0 0 2px var(--negiz);}
+  .cm-legend .cm-soon{box-shadow:inset 0 0 0 1.5px var(--muted); opacity:0.7;}
+  .alippe-row{border:none; background:var(--card); box-shadow:inset 0 0 0 2px var(--soilesu-tint);}
+  .alippe-row .tool-icon{font-family:var(--font-kk); font-weight:800; color:var(--soilesu); width:1.1em; text-align:center;}
   /* ---------- ЗВУК ---------- */
   /* Фон кнопки светлый в обеих темах, поэтому цвет значка прибит. */
   .say{
@@ -831,7 +907,7 @@
   <div class="eyebrow">Қазақ тілі · грамматика · офлайн</div>
   <h1>Жалғау <span class="h1-sub">как устроен казахский</span></h1>
   <p>Закон созвучия, база предложения, все падежи и глагол — в каждой теме правило, тексты для чтения и задания с проверкой.</p>
-  <p class="hero-note">Курс для тех, кто уже знает казахский алфавит, но словарный запас пока маленький. Слова вводятся порциями, и в текстах встречаются только те, что уже были — читать можно с первого дня.</p>
+  <p class="hero-note">Слова вводятся порциями, и в текстах встречаются только те, что уже были — читать можно с первого дня. Казахских букв не знаешь — начни с <button type="button" class="inline-link" data-open="alippe">Әліппе: 9 новых букв за 15 минут</button>.</p>
   <p class="hero-note" id="totalTimeNote"></p>
   <button type="button" class="about-link" data-open="about">О приложении: что внутри и как заниматься →</button>
   <div class="continue-block" id="continueBlock" style="display:none;"></div>
@@ -887,6 +963,11 @@
       <div class="sub">Пришёл говорить, а не учить падежи — начни отсюда. Фразы целиком, с подсказкой, когда их говорить, и сцены-диалоги, где ты отвечаешь собеседнику.</div>
     </div>
     <div class="topic-list">
+      <button type="button" class="tool-row alippe-row" data-open="alippe">
+        <span class="tool-icon" aria-hidden="true">Ә</span>
+        <span class="row-title">Әліппе · алфавит<span class="row-title-ru">9 казахских букв со звуком и как читать знакомые</span></span>
+        <span class="row-arrow" aria-hidden="true">›</span>
+      </button>
       <button type="button" class="tool-row speak-row" data-open="speak">
         <span class="tool-icon">💬</span>
         <span class="row-title">Сөйлесу · живые фразы<span class="row-title-ru">щит «не понял», знакомство, базар, такси, в гостях · 4 сцены</span></span>
@@ -916,6 +997,13 @@
       </button>
     </div>
   </div>
+
+  <div class="level-divider"><span>Карта курса — вся грамматика</span></div>
+  <!-- Схема рисуется кодом (renderCourseMap) из BLOCKS: числа и пройденное
+       не вписываются руками. Ширина — по контейнеру, а не viewBox на
+       масштаб: иначе на телефоне подписи станций сжимаются до 6px. -->
+  <div class="course-map" id="courseMap"></div>
+  <div class="cm-legend"><span><i class="cm-done"></i>пройдено</span><span><i class="cm-open"></i>открыто</span><span><i class="cm-soon"></i>скоро</span><span>нажми на станцию — откроется тема</span></div>
 
   <div class="level-divider"><span>Блок 0 · Негіз — основа</span></div>
   <div class="topic-group" id="negiz">
@@ -1234,7 +1322,7 @@
   </div>
   <div class="pane active">
     <p><b>Что это.</b> Офлайн-курс казахской грамматики для начинающих. Работает без интернета, весь прогресс хранится прямо на телефоне и никуда не отправляется.</p>
-    <p><b>Кому подходит.</b> Тому, кто знает казахский алфавит, но словарный запас пока маленький. Алфавит и произношение сюда не входят — всё остальное строится с нуля.</p>
+    <p><b>Кому подходит.</b> Тому, кто читает по-русски, а казахских слов знает мало или не знает совсем. Девять казахских букв и привычки чтения — на экране <button type="button" class="inline-link" data-open="alippe">Әліппе</button>, всё остальное строится с нуля. Подробной фонетики в курсе нет.</p>
     <p><b>Как устроен курс:</b></p>
     <ul class="rule-list">
       <li>В каждой теме три вкладки: <b>Ереже</b> (правило с примерами, сравнением и разбором типичных ошибок), <b>Мәтін</b> (тексты и диалоги) и <b>Тапсырма</b> — задания с автопроверкой</li>
@@ -8128,6 +8216,137 @@
   </div>
 </div>
 
+<!-- ============ ӘЛІППЕ — АЛФАВИТ ============ -->
+<!-- Экран без data-topic, как «Сөйлесу»: не тема, не пишет kkLastTopicV1.
+     Слова-примеры — .abc-kk: их озвучивает build_audio.py и обвешивает
+     кнопками initAudio. В Сөздік они не попадают (это не .wordset). -->
+<div class="screen topic-screen" id="screen-alippe" style="--tint-color:var(--soilesu)">
+  <div class="topic-topbar"><button type="button" class="back-btn" data-back>← Все темы</button></div>
+  <div class="topic-header">
+    <span class="marker" style="background:var(--soilesu)"></span>
+    <h2>Әліппе · алфавит</h2>
+  </div>
+  <div class="topic-subtitle">В казахской кириллице 42 буквы: 33 русские и 9 своих. Русские ты уже читаешь — осталось девять букв и пара привычек чтения. Минут пятнадцать.</div>
+
+  <div class="pane active">
+    <div class="abc-grid" aria-label="Казахский алфавит, 42 буквы">
+      <span>А</span><span class="own">Ә</span><span>Б</span><span class="loan">В</span><span>Г</span><span class="own">Ғ</span><span>Д</span><span>Е</span><span class="loan">Ё</span><span>Ж</span><span>З</span><span>И</span><span>Й</span><span>К</span><span class="own">Қ</span><span>Л</span><span>М</span><span>Н</span><span class="own">Ң</span><span>О</span><span class="own">Ө</span><span>П</span><span>Р</span><span>С</span><span>Т</span><span>У</span><span class="own">Ұ</span><span class="own">Ү</span><span class="loan">Ф</span><span>Х</span><span class="own">Һ</span><span class="loan">Ц</span><span class="loan">Ч</span><span>Ш</span><span class="loan">Щ</span><span class="loan">Ъ</span><span>Ы</span><span class="own">І</span><span class="loan">Ь</span><span class="loan">Э</span><span>Ю</span><span>Я</span>
+    </div>
+    <div class="abc-legend"><span><i class="own"></i>9 казахских букв</span><span><i class="loan"></i>почти только в словах из русского</span></div>
+
+    <h3 class="abc-h">Девять своих букв</h3>
+    <p>Нажми на динамик — слово прозвучит. Описание звука приблизительное: его задача — подсказать, куда двигать язык, а настоящий звук даст запись.</p>
+
+    <div class="abc-cards">
+      <div class="abc-card zh-soft">
+        <div class="abc-big">Әә</div>
+        <div class="abc-body">
+          <div class="abc-sound">как «я» в слове «пять»: мягкое, открытое «а»</div>
+          <div class="abc-ex"><span class="abc-kk">әке</span> — папа</div>
+        </div>
+      </div>
+      <div class="abc-card zh-soft">
+        <div class="abc-big">Өө</div>
+        <div class="abc-body">
+          <div class="abc-sound">как «ё» в слове «мёд», но без «й» в начале; немецкое ö</div>
+          <div class="abc-ex"><span class="abc-kk">өрік</span> — абрикос</div>
+        </div>
+      </div>
+      <div class="abc-card zh-soft">
+        <div class="abc-big">Үү</div>
+        <div class="abc-body">
+          <div class="abc-sound">как «ю» в слове «люк», но без «й»; немецкое ü</div>
+          <div class="abc-ex"><span class="abc-kk">үй</span> — дом</div>
+        </div>
+      </div>
+      <div class="abc-card zh-soft">
+        <div class="abc-big">Іі</div>
+        <div class="abc-body">
+          <div class="abc-sound">очень короткое «и», почти проглоченное</div>
+          <div class="abc-ex"><span class="abc-kk">іні</span> — младший брат</div>
+        </div>
+      </div>
+      <div class="abc-card zh-hard">
+        <div class="abc-big">Ұұ</div>
+        <div class="abc-body">
+          <div class="abc-sound">короткое твёрдое «у», губы почти не вытягиваются</div>
+          <div class="abc-ex"><span class="abc-kk">ұл</span> — сын</div>
+        </div>
+      </div>
+      <div class="abc-card zh-hard">
+        <div class="abc-big">Ққ</div>
+        <div class="abc-body">
+          <div class="abc-sound">«к», но глубже — из самого горла</div>
+          <div class="abc-ex"><span class="abc-kk">қала</span> — город</div>
+        </div>
+      </div>
+      <div class="abc-card zh-hard">
+        <div class="abc-big">Ғғ</div>
+        <div class="abc-body">
+          <div class="abc-sound">«г» без смычки, из горла — похоже на картавое «р» или южное «г» в «ага»</div>
+          <div class="abc-ex"><span class="abc-kk">аға</span> — старший брат</div>
+        </div>
+      </div>
+      <div class="abc-card">
+        <div class="abc-big">Ңң</div>
+        <div class="abc-body">
+          <div class="abc-sound">носовое «н», как в английском <i>-ing</i>; «г» в конце не звучит</div>
+          <div class="abc-ex"><span class="abc-kk">теңге</span> — тенге</div>
+        </div>
+      </div>
+      <div class="abc-card">
+        <div class="abc-big">Һһ</div>
+        <div class="abc-body">
+          <div class="abc-sound">лёгкий выдох, как английское <i>h</i>. Редкая, в арабских и персидских словах</div>
+          <div class="abc-ex"><span class="abc-kk">гауһар</span> — бриллиант</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip"><b>Пары, которые стоит запомнить сразу.</b> <span class="kk">қ</span> и <span class="kk">ғ</span> живут рядом с твёрдыми гласными, <span class="kk">к</span> и <span class="kk">г</span> — с мягкими: <span class="kk">қала</span>, но <span class="kk">кітап</span>. Это первое появление закона созвучия — с него начинается тема 0.1.</div>
+
+    <h3 class="abc-h">Гласные ходят парами</h3>
+    <p>Каждой твёрдой гласной соответствует мягкая. Какие гласные в слове — такие будут и в окончании: на этом держится весь курс.</p>
+    <svg class="abc-pairs" viewBox="0 0 320 150" role="img" aria-label="Пары гласных: а и ә, о и ө, ұ и ү, ы и і; е — только мягкая">
+      <text class="ap-head zh" x="20" y="18">твёрдые · жуан</text>
+      <text class="ap-head zi" x="300" y="18" text-anchor="end">мягкие · жіңішке</text>
+      <g class="ap-row" transform="translate(0,26)"><rect class="ap-h" x="20" y="0" width="44" height="24" rx="8"/><text x="42" y="17">а</text><path d="M72 12 H248"/><rect class="ap-s" x="256" y="0" width="44" height="24" rx="8"/><text x="278" y="17">ә</text></g>
+      <g class="ap-row" transform="translate(0,56)"><rect class="ap-h" x="20" y="0" width="44" height="24" rx="8"/><text x="42" y="17">о</text><path d="M72 12 H248"/><rect class="ap-s" x="256" y="0" width="44" height="24" rx="8"/><text x="278" y="17">ө</text></g>
+      <g class="ap-row" transform="translate(0,86)"><rect class="ap-h" x="20" y="0" width="44" height="24" rx="8"/><text x="42" y="17">ұ</text><path d="M72 12 H248"/><rect class="ap-s" x="256" y="0" width="44" height="24" rx="8"/><text x="278" y="17">ү</text></g>
+      <g class="ap-row" transform="translate(0,116)"><rect class="ap-h" x="20" y="0" width="44" height="24" rx="8"/><text x="42" y="17">ы</text><path d="M72 12 H248"/><rect class="ap-s" x="256" y="0" width="44" height="24" rx="8"/><text x="278" y="17">і</text></g>
+      <text class="ap-note" x="160" y="146" text-anchor="middle">е — без пары, всегда мягкая</text>
+    </svg>
+
+    <h3 class="abc-h">Знакомые буквы, которые читаются иначе</h3>
+    <div class="abc-rules">
+      <div class="abc-rule"><b class="kk">е</b><span>в начале слова — с лёгким «й»: <span class="abc-kk">ел</span> звучит почти как «йел» (страна)</span></div>
+      <div class="abc-rule"><b class="kk">о, ө</b><span>в начале слова — с лёгким «у»: <span class="abc-kk">ол</span> звучит почти как «уол» (он, она)</span></div>
+      <div class="abc-rule"><b class="kk">у</b><span>не русское «у»: после гласной — короткое «ў», <span class="abc-kk">тау</span> (гора); в других местах — «ұу» или «үу», <span class="abc-kk">су</span> (вода)</span></div>
+      <div class="abc-rule"><b class="kk">и</b><span>длинное, со скольжением — «ый» или «ій»: <span class="abc-kk">киім</span> (одежда)</span></div>
+      <div class="abc-rule"><b class="kk">ы</b><span>как русское «ы», но короче</span></div>
+      <div class="abc-rule"><b class="kk">в ё ф ц ч щ ъ ь э</b><span>почти не встречаются в казахских словах — только в пришедших из русского: <span class="kk">вагон, цирк, фабрика</span></span></div>
+    </div>
+
+    <h3 class="abc-h">Прочитай сам</h3>
+    <p>Прочитай слово вслух, потом открой — там подсказка и запись.</p>
+    <div class="abc-try">
+      <details><summary><span class="kk">қыз</span></summary><div><span class="abc-kk">қыз</span> — девочка, дочь. <b>қ</b> глубокое, <b>ы</b> короткое.</div></details>
+      <details><summary><span class="kk">әже</span></summary><div><span class="abc-kk">әже</span> — бабушка. <b>ә</b> как «я» в «пять».</div></details>
+      <details><summary><span class="kk">көл</span></summary><div><span class="abc-kk">көл</span> — озеро. <b>ө</b> как «ё» без «й».</div></details>
+      <details><summary><span class="kk">ет</span></summary><div><span class="abc-kk">ет</span> — мясо. В начале слова <b>е</b> звучит с «й»: «йет».</div></details>
+      <details><summary><span class="kk">тіл</span></summary><div><span class="abc-kk">тіл</span> — язык. <b>і</b> совсем короткое.</div></details>
+      <details><summary><span class="kk">ағаш</span></summary><div><span class="abc-kk">ағаш</span> — дерево. <b>ғ</b> без смычки, из горла.</div></details>
+      <details><summary><span class="kk">жұмыс</span></summary><div><span class="abc-kk">жұмыс</span> — работа. <b>ұ</b> короткое, губы почти не вытягиваются.</div></details>
+      <details><summary><span class="kk">таң</span></summary><div><span class="abc-kk">таң</span> — рассвет. <b>ң</b> носовое, без «г» в конце.</div></details>
+    </div>
+
+    <div class="abc-next">
+      <button type="button" class="start-here" data-open="speak"><span class="review-why">Дальше</span><b>Сөйлесу · живые фразы</b><span class="review-why">Что сказать сегодня — уже с этими буквами</span></button>
+      <button type="button" class="start-alt" data-open="harmony-vowels">или грамматика: 0.1 Үндестік заңы — закон созвучия →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ СӨЙЛЕСУ · ЖИВЫЕ ФРАЗЫ ============
      Фразы целиком, без разбора: человек пришёл говорить, и первая польза —
      фраза, которую он скажет сегодня. У каждой строка «когда говорить» и,
@@ -8652,6 +8871,7 @@
     });
 
     renderMeter(p);
+    renderCourseMap(p);
     renderReviewBlock(p);
     renderContinueBlock();
   }
@@ -8689,6 +8909,59 @@
       : names[0];
     if(cntEl) cntEl.textContent = doneAll + " из " + plannedTotal + " тем блоков " + listed + ". Остальные темы пока в работе.";
   }
+
+  // Карта курса: блок — линия, тема — станция. Линии идут змейкой, чтобы
+  // маршрут читался одним путём от 0.1 до конца. Станции без экрана
+  // (planned больше, чем тем) — пунктирные «скоро».
+  var cmWidth = 0;
+  function renderCourseMap(p){
+    var box = document.getElementById("courseMap");
+    if(!box) return;
+    var W = Math.round(box.clientWidth);
+    if(!W) return;            // главная скрыта — нарисуем при возврате
+    cmWidth = W;
+    p = p || loadProgress();
+    var last; try{ last = localStorage.getItem(LAST_TOPIC_KEY); }catch(e){}
+    var titles = topicTitleMap();
+    var keys = Object.keys(BLOCKS);
+    var PAD = 22, TOP = 30, GAP = 66;
+    var ys = keys.map(function(k, r){ return TOP + r*GAP; });
+    var H = ys[ys.length-1] + 34;
+    var out = "", turns = "";
+    keys.forEach(function(k, r){
+      var b = BLOCKS[k], n = b.planned, y = ys[r], rtl = r % 2 === 1;
+      var xAt = function(i){ var x = PAD + i*(W - 2*PAD)/(n - 1); return rtl ? W - x : x; };
+      var done = b.topics.filter(function(t){ return isDone(p[t]); }).length;
+      out += '<text class="cm-label" x="'+(rtl ? W-PAD+4 : PAD-4)+'" y="'+(y-16)+'" text-anchor="'+(rtl ? "end" : "start")+'" style="fill:var('+b.color+'-deep)">'+r+' · '+b.label+' <tspan class="cm-count">'+done+'/'+n+'</tspan></text>';
+      out += '<line class="cm-line" x1="'+xAt(0)+'" y1="'+y+'" x2="'+xAt(n-1)+'" y2="'+y+'" style="stroke:var('+b.color+')"/>';
+      if(r < keys.length - 1){
+        var xe = rtl ? PAD : W - PAD, bend = rtl ? -16 : 16, y2 = ys[r+1];
+        turns += '<path class="cm-turn" d="M'+xe+' '+y+' C'+(xe+bend)+' '+y+' '+(xe+bend)+' '+y2+' '+xe+' '+y2+'"/>';
+      }
+      for(var i = 0; i < n; i++){
+        var id = b.topics[i], x = xAt(i).toFixed(1), num = r + "." + (i+1);
+        if(!id){
+          out += '<g class="cm-st soon"><circle cx="'+x+'" cy="'+y+'" r="6"/><text x="'+x+'" y="'+(y+21)+'">'+num+'</text><title>'+num+' — скоро</title></g>';
+          continue;
+        }
+        var cls = isDone(p[id]) ? "done" : "open";
+        out += '<g class="cm-st '+cls+'" data-open="'+id+'" style="--c:var('+b.color+')">' +
+          (id === last ? '<circle class="cm-here" cx="'+x+'" cy="'+y+'" r="11"/>' : '') +
+          '<circle class="cm-hit" cx="'+x+'" cy="'+y+'" r="13"/>' +
+          '<circle class="cm-dot" cx="'+x+'" cy="'+y+'" r="6.5"/>' +
+          '<text x="'+x+'" y="'+(y+21)+'">'+num+'</text>' +
+          '<title>'+esc(titles[id] || num)+'</title></g>';
+      }
+    });
+    box.innerHTML = '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Карта курса: четыре блока, '+TOPICS.length+' тем открыто">'+turns+out+'</svg>';
+  }
+  window.addEventListener("resize", function(){
+    clearTimeout(renderCourseMap.t);
+    renderCourseMap.t = setTimeout(function(){
+      var box = document.getElementById("courseMap");
+      if(box && Math.round(box.clientWidth) !== cmWidth) renderCourseMap();
+    }, 150);
+  });
 
   // Тема попадает сюда, если по ней есть попытка с ошибками. Сортируем по
   // доле ошибок, а при равной доле — по давности: то, что дольше не трогали,
@@ -8732,6 +9005,7 @@
       box.innerHTML = '<button type="button" class="start-here" data-open="speak">' +
         '<span class="review-why">Начать здесь</span><b>Сөйлесу · живые фразы</b>' +
         '<span class="review-why">Что сказать сегодня: «не понял», знакомство, базар, такси</span></button>' +
+        '<button type="button" class="start-alt" data-open="alippe">не знаешь казахских букв — сначала Әліппе →</button>' +
         '<button type="button" class="start-alt" data-open="harmony-vowels">или сразу грамматика с темы 0.1 →</button>';
       box.style.display = "block";
       return;
@@ -9118,6 +9392,9 @@
     });
     screen.querySelectorAll(".ph-kk").forEach(function(p){
       p.insertAdjacentHTML("afterbegin", sayBtn(p.textContent));
+    });
+    screen.querySelectorAll(".abc-kk").forEach(function(w){
+      w.insertAdjacentHTML("beforebegin", sayBtn(w.textContent));
     });
   }
 
@@ -10252,6 +10529,7 @@
     else window.scrollTo(0,0);
     updateFloatBack();
     renderContinueBlock();
+    renderCourseMap();
   }
 
   function activeTopicId(){
