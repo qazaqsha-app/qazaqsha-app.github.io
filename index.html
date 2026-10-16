@@ -841,9 +841,13 @@
     position:fixed; left:0; right:0; bottom:0; z-index:80;
     display:flex; justify-content:center; gap:5px; flex-wrap:wrap;
     padding:7px 8px calc(7px + env(safe-area-inset-bottom)); background:var(--card);
-    box-shadow:0 -4px 18px rgba(0,0,0,0.12); transform:translateY(110%); transition:transform .15s;
+    box-shadow:0 -4px 18px rgba(0,0,0,0.12); transform:translateY(110%);
+    /* Спрятанная строка сдвинута под край экрана, но её тень на ~22px
+       выглядывала снизу на каждом экране. visibility гасит её целиком,
+       а задержка даёт строке сначала уехать. */
+    visibility:hidden; transition:transform .15s, visibility 0s .15s;
   }
-  .kk-keys.show{transform:translateY(0);}
+  .kk-keys.show{transform:translateY(0); visibility:visible; transition:transform .15s;}
   .kk-keys button{
     min-width:36px; height:40px; padding:0 6px; border-radius:9px; border:1.5px solid #DDE2E8;
     background:var(--bg); color:var(--ink); font-family:var(--font-kk); font-size:1.1rem; font-weight:600;
