@@ -10918,6 +10918,48 @@
     renderProgress();
   });
 
+  /* Перезагрузка (F5, «обновить» в меню) не должна выкидывать на главную.
+     history.state переживает перезагрузку, поэтому экран и вкладку берём из
+     него. Прокрутку держим в sessionStorage вместе с экраном, к которому она
+     относится: дописать её в history.state в момент ухода Chrome не даёт.
+     Ставим её после отрисовки экрана — openTopic сам прокручивает в начало. */
+  var SCROLL_KEY = "kkScrollV1", scrollTimer = null;
+
+  function viewKey(){
+    var v = navState();
+    return v.view === "topic" ? v.id + "/" + (v.pane || "rule") : "home";
+  }
+
+  function saveScroll(){
+    try{ sessionStorage.setItem(SCROLL_KEY, JSON.stringify({ at:viewKey(), y:window.scrollY })); }catch(e){}
+  }
+
+  function restoreAfterReload(){
+    var v = navState();
+    if(v.view === "topic" && v.id && document.getElementById("screen-" + v.id)){
+      renderView(v);
+      replaceView(v);
+    } else {
+      replaceView({ view:"home", i:v.i || 0 });
+    }
+    var saved = null;
+    try{ saved = JSON.parse(sessionStorage.getItem(SCROLL_KEY)); }catch(e){}
+    if(saved && saved.at === viewKey() && saved.y > 0){
+      // Браузер сам восстанавливает прокрутку при загрузке и может
+      // перебить нашу, поэтому ставим её ещё раз после события load.
+      var put = function(){ window.scrollTo(0, saved.y); };
+      requestAnimationFrame(put);
+      if(document.readyState === "complete") setTimeout(put, 0);
+      else window.addEventListener("load", function(){ setTimeout(put, 0); }, {once:true});
+    }
+  }
+
+  window.addEventListener("scroll", function(){
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(saveScroll, 250);
+  }, {passive:true});
+  window.addEventListener("pagehide", saveScroll);
+
   /* ================= СТАРТ ================= */
 
   (function init(){
@@ -10950,7 +10992,7 @@
     renderTotalTime();
     renderVocabDueBadge();
     renderProgress();
-    replaceView({ view:"home", i:0 });
+    restoreAfterReload();
     armHomeGuard();
   })();
 
