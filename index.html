@@ -535,27 +535,6 @@
   .inline-link{background:none; border:none; padding:0; font:inherit; color:var(--soilesu); font-weight:700; text-decoration:underline; cursor:pointer;}
   body.dark .inline-link{color:#A99BEA;}
   .continue-block .start-alt, .abc-next .start-alt{display:block;}
-  /* ---------- КАРТА КУРСА ---------- */
-  .course-map{background:var(--card); border-radius:var(--radius); padding:4px 0 2px; overflow:hidden;}
-  .course-map svg{display:block;}
-  .cm-label{font-family:var(--font-ru); font-size:12px; font-weight:800;}
-  body.dark .cm-label{fill:var(--ink) !important;}
-  .cm-count{font-weight:600; fill:var(--muted);}
-  .cm-line{stroke-width:6; stroke-linecap:round; opacity:0.32;}
-  .cm-turn{fill:none; stroke:var(--muted); stroke-width:2; stroke-dasharray:2 5; stroke-linecap:round; opacity:0.5;}
-  .cm-st text{font-family:var(--font-lat); font-size:10px; font-weight:700; fill:var(--muted); text-anchor:middle;}
-  .cm-st[data-open]{cursor:pointer;}
-  .cm-hit{fill:transparent;}
-  .cm-dot{fill:var(--card); stroke:var(--c); stroke-width:2.5;}
-  .cm-st.done .cm-dot{fill:var(--c);}
-  .cm-st.soon circle{fill:var(--card); stroke:var(--muted); stroke-width:1.5; stroke-dasharray:2 2.5; opacity:0.7;}
-  .cm-here{fill:none; stroke:var(--c); stroke-width:2; opacity:0.35;}
-  .cm-st[data-open]:hover .cm-dot{stroke-width:3.5;}
-  .cm-legend{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:0.75rem; color:var(--muted); margin:8px 2px 0;}
-  .cm-legend i{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:-1px;}
-  .cm-legend .cm-done{background:var(--negiz);}
-  .cm-legend .cm-open{box-shadow:inset 0 0 0 2px var(--negiz);}
-  .cm-legend .cm-soon{box-shadow:inset 0 0 0 1.5px var(--muted); opacity:0.7;}
   .alippe-row{border:none; background:var(--card); box-shadow:inset 0 0 0 2px var(--soilesu-tint);}
   .alippe-row .tool-icon{font-family:var(--font-kk); font-weight:800; color:var(--soilesu); width:1.1em; text-align:center;}
   /* ---------- ЗВУК ---------- */
@@ -997,13 +976,6 @@
       </button>
     </div>
   </div>
-
-  <div class="level-divider"><span>Карта курса — вся грамматика</span></div>
-  <!-- Схема рисуется кодом (renderCourseMap) из BLOCKS: числа и пройденное
-       не вписываются руками. Ширина — по контейнеру, а не viewBox на
-       масштаб: иначе на телефоне подписи станций сжимаются до 6px. -->
-  <div class="course-map" id="courseMap"></div>
-  <div class="cm-legend"><span><i class="cm-done"></i>пройдено</span><span><i class="cm-open"></i>открыто</span><span><i class="cm-soon"></i>скоро</span><span>нажми на станцию — откроется тема</span></div>
 
   <div class="level-divider"><span>Блок 0 · Негіз — основа</span></div>
   <div class="topic-group" id="negiz">
@@ -8871,7 +8843,6 @@
     });
 
     renderMeter(p);
-    renderCourseMap(p);
     renderReviewBlock(p);
     renderContinueBlock();
   }
@@ -8909,59 +8880,6 @@
       : names[0];
     if(cntEl) cntEl.textContent = doneAll + " из " + plannedTotal + " тем блоков " + listed + ". Остальные темы пока в работе.";
   }
-
-  // Карта курса: блок — линия, тема — станция. Линии идут змейкой, чтобы
-  // маршрут читался одним путём от 0.1 до конца. Станции без экрана
-  // (planned больше, чем тем) — пунктирные «скоро».
-  var cmWidth = 0;
-  function renderCourseMap(p){
-    var box = document.getElementById("courseMap");
-    if(!box) return;
-    var W = Math.round(box.clientWidth);
-    if(!W) return;            // главная скрыта — нарисуем при возврате
-    cmWidth = W;
-    p = p || loadProgress();
-    var last; try{ last = localStorage.getItem(LAST_TOPIC_KEY); }catch(e){}
-    var titles = topicTitleMap();
-    var keys = Object.keys(BLOCKS);
-    var PAD = 22, TOP = 30, GAP = 66;
-    var ys = keys.map(function(k, r){ return TOP + r*GAP; });
-    var H = ys[ys.length-1] + 34;
-    var out = "", turns = "";
-    keys.forEach(function(k, r){
-      var b = BLOCKS[k], n = b.planned, y = ys[r], rtl = r % 2 === 1;
-      var xAt = function(i){ var x = PAD + i*(W - 2*PAD)/(n - 1); return rtl ? W - x : x; };
-      var done = b.topics.filter(function(t){ return isDone(p[t]); }).length;
-      out += '<text class="cm-label" x="'+(rtl ? W-PAD+4 : PAD-4)+'" y="'+(y-16)+'" text-anchor="'+(rtl ? "end" : "start")+'" style="fill:var('+b.color+'-deep)">'+r+' · '+b.label+' <tspan class="cm-count">'+done+'/'+n+'</tspan></text>';
-      out += '<line class="cm-line" x1="'+xAt(0)+'" y1="'+y+'" x2="'+xAt(n-1)+'" y2="'+y+'" style="stroke:var('+b.color+')"/>';
-      if(r < keys.length - 1){
-        var xe = rtl ? PAD : W - PAD, bend = rtl ? -16 : 16, y2 = ys[r+1];
-        turns += '<path class="cm-turn" d="M'+xe+' '+y+' C'+(xe+bend)+' '+y+' '+(xe+bend)+' '+y2+' '+xe+' '+y2+'"/>';
-      }
-      for(var i = 0; i < n; i++){
-        var id = b.topics[i], x = xAt(i).toFixed(1), num = r + "." + (i+1);
-        if(!id){
-          out += '<g class="cm-st soon"><circle cx="'+x+'" cy="'+y+'" r="6"/><text x="'+x+'" y="'+(y+21)+'">'+num+'</text><title>'+num+' — скоро</title></g>';
-          continue;
-        }
-        var cls = isDone(p[id]) ? "done" : "open";
-        out += '<g class="cm-st '+cls+'" data-open="'+id+'" style="--c:var('+b.color+')">' +
-          (id === last ? '<circle class="cm-here" cx="'+x+'" cy="'+y+'" r="11"/>' : '') +
-          '<circle class="cm-hit" cx="'+x+'" cy="'+y+'" r="13"/>' +
-          '<circle class="cm-dot" cx="'+x+'" cy="'+y+'" r="6.5"/>' +
-          '<text x="'+x+'" y="'+(y+21)+'">'+num+'</text>' +
-          '<title>'+esc(titles[id] || num)+'</title></g>';
-      }
-    });
-    box.innerHTML = '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Карта курса: четыре блока, '+TOPICS.length+' тем открыто">'+turns+out+'</svg>';
-  }
-  window.addEventListener("resize", function(){
-    clearTimeout(renderCourseMap.t);
-    renderCourseMap.t = setTimeout(function(){
-      var box = document.getElementById("courseMap");
-      if(box && Math.round(box.clientWidth) !== cmWidth) renderCourseMap();
-    }, 150);
-  });
 
   // Тема попадает сюда, если по ней есть попытка с ошибками. Сортируем по
   // доле ошибок, а при равной доле — по давности: то, что дольше не трогали,
@@ -10529,7 +10447,6 @@
     else window.scrollTo(0,0);
     updateFloatBack();
     renderContinueBlock();
-    renderCourseMap();
   }
 
   function activeTopicId(){
